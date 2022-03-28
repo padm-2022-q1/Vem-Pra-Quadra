@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="top_margin_between">16dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="font_size_logo">32sp</dimen>
+</resources>
