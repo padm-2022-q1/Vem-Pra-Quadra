@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.data.model
+package com.reis.vinicius.vempraquadra.model.item
 
 import java.util.*
 

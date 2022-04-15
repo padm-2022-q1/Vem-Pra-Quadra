@@ -1,11 +1,11 @@
-package com.reis.vinicius.vempraquadra.ui.fragment.list
+package com.reis.vinicius.vempraquadra.view.list
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.reis.vinicius.vempraquadra.data.adapter.ChatItemAdapter
+import com.reis.vinicius.vempraquadra.model.adapter.ChatItemAdapter
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatBinding
 
 class ChatFragment : Fragment() {

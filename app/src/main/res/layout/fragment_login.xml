@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/login_main_page_padding"
-    tools:context=".ui.fragment.page.LoginFragment">
+    tools:context=".view.page.LoginFragment">
 
     <TextView
         android:layout_width="match_parent"

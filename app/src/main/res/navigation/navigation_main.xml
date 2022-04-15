@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginMainFragment"
-        android:name="com.reis.vinicius.vempraquadra.ui.fragment.page.LoginFragment"
+        android:name="com.reis.vinicius.vempraquadra.view.page.LoginFragment"
         android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.reis.vinicius.vempraquadra.ui.fragment.page.HomeFragment"
+        android:name="com.reis.vinicius.vempraquadra.view.page.HomeFragment"
         android:label="Main menu"
         tools:layout="@layout/fragment_home" />
 </navigation>

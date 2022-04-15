@@ -1,13 +1,11 @@
-package com.reis.vinicius.vempraquadra.ui.fragment.page
+package com.reis.vinicius.vempraquadra.view.page
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {

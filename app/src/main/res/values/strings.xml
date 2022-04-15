@@ -10,11 +10,13 @@
     <string name="main_menu_chat_title">Chat</string>
     <string name="main_menu_map_title">Map</string>
     <string name="main_menu_account_title">My account</string>
-    <string name="text_profile_pic_default_description">Default profile picture</string>
+    <string name="profile_pic_default_description">Default profile picture</string>
     <string name="feed_item_title_default">Feed item title</string>
     <string name="feed_item_content_default">Feed item content, that describes the details of this feed item</string>
     <string name="feed_item_calendar_icon_description">Calendar icon</string>
     <string name="feed_item_created_date_default">2022-01-01 08:00:00 a.m.</string>
     <string name="chat_item_contact_name_default">Contact name</string>
-    <string name="text_chat_item_last_message_summary_default">Last message summarized</string>
+    <string name="chat_item_last_message_summary_default">Last message summarized</string>
+    <string name="user_name_default">User\'s name</string>
+    <string name="user_email_default">user@email.com</string>
 </resources>

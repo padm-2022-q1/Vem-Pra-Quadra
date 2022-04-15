@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.data.adapter
+package com.reis.vinicius.vempraquadra.model.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.item.ChatItemFragment"
+    tools:context=".view.item.ChatItemFragment"
     android:padding="12dp">
 
     <androidx.cardview.widget.CardView
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:src="@drawable/ic_profile_pic_default"
-            android:contentDescription="@string/text_profile_pic_default_description" />
+            android:contentDescription="@string/profile_pic_default_description" />
 
     </androidx.cardview.widget.CardView>
 
@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="@string/text_chat_item_last_message_summary_default"
+        android:text="@string/chat_item_last_message_summary_default"
         android:textSize="12sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

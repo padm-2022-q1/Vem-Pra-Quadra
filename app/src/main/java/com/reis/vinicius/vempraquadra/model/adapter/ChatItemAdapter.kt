@@ -1,10 +1,9 @@
-package com.reis.vinicius.vempraquadra.data.adapter
+package com.reis.vinicius.vempraquadra.model.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatItemBinding
-import com.reis.vinicius.vempraquadra.databinding.FragmentFeedItemBinding
 
 class ChatItemAdapter : RecyclerView.Adapter<ChatItemAdapter.ChatItemHolder>() {
     inner class ChatItemHolder(itemBinding: FragmentChatItemBinding):

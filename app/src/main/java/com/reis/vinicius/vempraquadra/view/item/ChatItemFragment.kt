@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.ui.fragment.item
+package com.reis.vinicius.vempraquadra.view.item
 
 import android.os.Bundle
 import android.view.LayoutInflater
