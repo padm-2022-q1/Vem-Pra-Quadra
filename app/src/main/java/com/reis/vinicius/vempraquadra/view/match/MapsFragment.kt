@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.view.page
+package com.reis.vinicius.vempraquadra.view.match
 
 import androidx.fragment.app.Fragment
 

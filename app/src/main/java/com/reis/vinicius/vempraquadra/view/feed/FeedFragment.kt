@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.view.list
+package com.reis.vinicius.vempraquadra.view.feed
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

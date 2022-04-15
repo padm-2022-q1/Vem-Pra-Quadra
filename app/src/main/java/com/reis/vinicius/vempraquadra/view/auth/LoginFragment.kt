@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.view.page
+package com.reis.vinicius.vempraquadra.view.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater

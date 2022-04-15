@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.view.item
+package com.reis.vinicius.vempraquadra.view.chat
 
 import android.os.Bundle
 import android.view.LayoutInflater

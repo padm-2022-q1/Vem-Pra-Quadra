@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.view.page
+package com.reis.vinicius.vempraquadra.view.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentHomeBinding
-import com.reis.vinicius.vempraquadra.view.list.ChatFragment
-import com.reis.vinicius.vempraquadra.view.list.FeedFragment
+import com.reis.vinicius.vempraquadra.view.chat.ChatFragment
+import com.reis.vinicius.vempraquadra.view.feed.FeedFragment
+import com.reis.vinicius.vempraquadra.view.match.MapsFragment
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
