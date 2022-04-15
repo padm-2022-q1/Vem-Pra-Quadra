@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FeedItemFragment"
+    tools:context=".ui.fragment.item.FeedItemFragment"
     android:padding="12dp">
 
     <androidx.cardview.widget.CardView
@@ -21,7 +21,7 @@
             android:id="@+id/image_feed_item_profile_pic"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:src="@drawable/ic_feed_item_profile_default"
+            android:src="@drawable/ic_profile_pic_default"
             android:contentDescription="@string/text_profile_pic_default_description" />
 
     </androidx.cardview.widget.CardView>

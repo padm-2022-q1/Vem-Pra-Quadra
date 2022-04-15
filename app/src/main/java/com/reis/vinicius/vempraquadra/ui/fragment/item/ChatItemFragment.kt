@@ -1,21 +1,21 @@
-package com.reis.vinicius.vempraquadra
+package com.reis.vinicius.vempraquadra.ui.fragment.item
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.reis.vinicius.vempraquadra.databinding.FragmentLoginMainBinding
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatItemBinding
 
-class LoginMainFragment : Fragment() {
-    private lateinit var binding: FragmentLoginMainBinding
+class ChatItemFragment : Fragment() {
+    private lateinit var binding: FragmentChatItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginMainBinding.inflate(inflater, container, false)
+        binding = FragmentChatItemBinding.inflate(inflater, container, false)
 
         return binding.root
     }
