@@ -29,7 +29,11 @@ class LoginFragment : Fragment() {
 
     private fun bindLoginEvents(){
         binding.buttonLoginLogin.setOnClickListener {
-            findNavController().navigate(LoginFragmentDirections.goToHome())
+            findNavController().navigate(LoginFragmentDirections.openHome())
+        }
+
+        binding.buttonLoginSignUp.setOnClickListener {
+            findNavController().navigate(LoginFragmentDirections.openSignup())
         }
     }
 }

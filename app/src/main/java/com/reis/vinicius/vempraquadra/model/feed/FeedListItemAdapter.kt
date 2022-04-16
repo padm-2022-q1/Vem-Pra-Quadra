@@ -1,12 +1,12 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.model.feed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.databinding.FragmentFeedItemBinding
 
-class FeedItemAdapter : RecyclerView.Adapter<FeedItemAdapter.FeedItemHolder>() {
-    inner class FeedItemHolder(itemBinding: FragmentFeedItemBinding):
+class FeedListItemAdapter : RecyclerView.Adapter<FeedListItemAdapter.Holder>() {
+    inner class Holder(itemBinding: FragmentFeedItemBinding):
         RecyclerView.ViewHolder(itemBinding.root){
             val profilePicImage = itemBinding.imageFeedItemProfilePic
             val title = itemBinding.textFeedItemTitle
@@ -14,15 +14,15 @@ class FeedItemAdapter : RecyclerView.Adapter<FeedItemAdapter.FeedItemHolder>() {
             val createdDate = itemBinding.textFeedItemCreatedDate
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedItemHolder {
-        return FeedItemHolder(FragmentFeedItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(FragmentFeedItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         ))
     }
 
-    override fun onBindViewHolder(holder: FeedItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         return
     }
 

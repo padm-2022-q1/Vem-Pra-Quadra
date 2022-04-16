@@ -3,11 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home_menu">
+    app:startDestination="@id/nav_login">
 
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.reis.vinicius.vempraquadra.view.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/open_home"
+            app:destination="@id/nav_home_menu" />
+        <action
+            android:id="@+id/open_signup"
+            app:destination="@id/nav_signup" />
+    </fragment>
     <fragment
         android:id="@+id/nav_home_menu"
         android:name="com.reis.vinicius.vempraquadra.view.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/open_login"
+            app:destination="@id/nav_login" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_signup"
+        android:name="com.reis.vinicius.vempraquadra.view.auth.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" />
 </navigation>

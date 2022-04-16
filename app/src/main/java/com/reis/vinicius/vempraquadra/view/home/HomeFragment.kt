@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentHomeBinding
-import com.reis.vinicius.vempraquadra.view.chat.ChatFragment
+import com.reis.vinicius.vempraquadra.view.chat.ChatListFragment
 import com.reis.vinicius.vempraquadra.view.feed.FeedFragment
-import com.reis.vinicius.vempraquadra.view.match.MapsFragment
+import com.reis.vinicius.vempraquadra.view.match.MatchesFragment
 
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
@@ -38,9 +38,9 @@ class HomeFragment : Fragment() {
     private fun bindBottomNavEvents() {
         binding.bottomNavMainMenu.setOnItemSelectedListener { item ->
             val fragment = when (item.itemId){
-                R.id.item_main_menu_home -> FeedFragment()
-                R.id.item_main_menu_chat -> ChatFragment()
-                R.id.item_main_menu_map -> MapsFragment()
+                R.id.item_main_menu_feed -> FeedFragment()
+                R.id.item_main_menu_chat -> ChatListFragment()
+                R.id.item_main_menu_matches -> MatchesFragment()
                 else -> FeedFragment()
             }
 

@@ -33,4 +33,17 @@
     <string name="signup_personal_info_section_label">Personal info</string>
     <string name="hint_signup_first_name">First name</string>
     <string name="hint_signup_last_name">Last name</string>
+    <string name="hint_signup_birth_date">Date of birth</string>
+    <string name="hint_signup_gender">Gender</string>
+    <string name="hint_signup_email">E-mail</string>
+    <string name="hint_signup_password">Password</string>
+    <string name="hint_signup_password_confirm">Confirm password</string>
+    <string name="main_menu_feed_title">Feed</string>
+    <string name="main_menu_matches_title">Matches</string>
+    <string name="chip_matches_list_title">List</string>
+    <string name="chip_matches_map_title">Map</string>
+    <string name="match_list_name_default">Match name</string>
+    <string name="match_list_item_address_default">Match address</string>
+    <string name="match_list_item_logo_description">Match logo</string>
+    <string name="btn_signup_save_description">Save user information</string>
 </resources>

@@ -5,18 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.reis.vinicius.vempraquadra.model.adapter.ChatItemAdapter
-import com.reis.vinicius.vempraquadra.databinding.FragmentChatBinding
+import com.reis.vinicius.vempraquadra.model.chat.ChatListItemAdapter
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatListBinding
 
-class ChatFragment : Fragment() {
-    private lateinit var binding: FragmentChatBinding
+class ChatListFragment : Fragment() {
+    private lateinit var binding: FragmentChatListBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentChatBinding.inflate(inflater, container, false)
+        binding = FragmentChatListBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -24,6 +24,6 @@ class ChatFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        binding.recyclerChat.adapter = ChatItemAdapter()
+        binding.recyclerChat.adapter = ChatListItemAdapter()
     }
 }

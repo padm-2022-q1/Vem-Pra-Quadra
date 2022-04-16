@@ -1,27 +1,27 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.model.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.reis.vinicius.vempraquadra.databinding.FragmentChatItemBinding
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
 
-class ChatItemAdapter : RecyclerView.Adapter<ChatItemAdapter.ChatItemHolder>() {
-    inner class ChatItemHolder(itemBinding: FragmentChatItemBinding):
+class ChatListItemAdapter : RecyclerView.Adapter<ChatListItemAdapter.Holder>() {
+    inner class Holder(itemBinding: FragmentChatListItemBinding):
         RecyclerView.ViewHolder(itemBinding.root){
             val profilePicImage = itemBinding.imageChatItemProfilePic
             val name = itemBinding.textChatItemContactName
             val lastMessage = itemBinding.textChatItemLastMessageSummary
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemHolder {
-        return ChatItemHolder(FragmentChatItemBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
+        return Holder(FragmentChatListItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         ))
     }
 
-    override fun onBindViewHolder(holder: ChatItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: Holder, position: Int) {
         return
     }
 

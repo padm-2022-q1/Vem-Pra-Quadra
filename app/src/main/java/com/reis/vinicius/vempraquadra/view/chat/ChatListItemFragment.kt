@@ -5,17 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.reis.vinicius.vempraquadra.databinding.FragmentChatItemBinding
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
 
-class ChatItemFragment : Fragment() {
-    private lateinit var binding: FragmentChatItemBinding
+class ChatListItemFragment : Fragment() {
+    private lateinit var binding: FragmentChatListItemBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentChatItemBinding.inflate(inflater, container, false)
+        binding = FragmentChatListItemBinding.inflate(inflater, container, false)
 
         return binding.root
     }
