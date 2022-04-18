@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
+import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentFeedBinding
 import com.reis.vinicius.vempraquadra.model.feed.FeedListItemAdapter
 
@@ -24,6 +27,19 @@ class FeedFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        bindNewPostFabEvent()
         binding.recyclerFeed.adapter = FeedListItemAdapter()
+    }
+
+    private fun bindNewPostFabEvent(){
+        binding.fabFeedCreatePost.setOnClickListener {
+            val postDialogFragment = PostDialogFragment()
+
+            parentFragmentManager.commit {
+                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                replace(R.id.nav_host_fragment_content_home, postDialogFragment)
+                addToBackStack(null)
+            }
+        }
     }
 }

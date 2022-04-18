@@ -24,6 +24,8 @@ class LoginFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
+        activity?.actionBar?.hide()
+
         bindLoginEvents()
     }
 

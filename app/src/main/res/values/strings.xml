@@ -46,4 +46,8 @@
     <string name="match_list_item_address_default">Match address</string>
     <string name="match_list_item_logo_description">Match logo</string>
     <string name="btn_signup_save_description">Save user information</string>
+    <string name="hint_post_title">Title</string>
+    <string name="hint_post_content">Content</string>
+    <string name="text_action_cancel">Cancel</string>
+    <string name="text_action_save">Save</string>
 </resources>

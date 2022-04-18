@@ -24,26 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/label_signup_personal_info" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_signup_profile_pic"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        app:layout_constraintTop_toBottomOf="@id/divider_signup_personal_info_label"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="24dp"
-        app:cardCornerRadius="80dp"
-        android:focusable="true"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/image_signup_profile_pic"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_profile_pic_default" />
-
-    </androidx.cardview.widget.CardView>
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input_signup_first_name"
         android:layout_width="match_parent"
@@ -51,8 +31,7 @@
         android:layout_marginBottom="@dimen/top_margin_between"
         android:hint="@string/hint_signup_first_name"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_signup_profile_pic"
-        android:layout_marginTop="24dp">
+        app:layout_constraintTop_toBottomOf="@id/divider_signup_personal_info_label">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

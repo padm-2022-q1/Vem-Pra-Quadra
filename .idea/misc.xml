@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25625" />
         <entry key="app/src/main/res/layout/app_bar_home.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/layout/content_dialog_new_post.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_chat.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/fragment_chat_item.xml" value="0.5" />
@@ -14,6 +15,8 @@
         <entry key="app/src/main/res/layout/fragment_feed_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_menu.xml" value="0.17864583333333334" />
+        <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.353125" />
+        <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog_item.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.33645833333333336" />
         <entry key="app/src/main/res/layout/fragment_login_main.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.17864583333333334" />
@@ -21,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_match_list.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_match_list_item.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_matches.xml" value="0.3536458333333333" />
+        <entry key="app/src/main/res/layout/fragment_post_dialog.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.3536458333333333" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.3536458333333333" />
