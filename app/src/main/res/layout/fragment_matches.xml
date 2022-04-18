@@ -42,16 +42,4 @@
 
     </com.google.android.material.chip.ChipGroup>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_signup_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_margin="16dp"
-        android:focusable="true"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        android:contentDescription="@string/btn_signup_save_description" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
