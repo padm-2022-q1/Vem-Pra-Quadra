@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1062667235804",
+    "project_id": "vempraquadra",
+    "storage_bucket": "vempraquadra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062667235804:android:7fdd57191b5c8ee71c1f19",
+        "android_client_info": {
+          "package_name": "com.reis.vinicius.vempraquadra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062667235804-ql7hrcldvkvfi2i0k5l67gpgn6vht1pj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reis.vinicius.vempraquadra",
+            "certificate_hash": "5935054c14cffd60334785f9646ab1971ffd87fe"
+          }
+        },
+        {
+          "client_id": "1062667235804-23avfu4ngc0gvcsq0dtuubbf0grkj2sr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUO7EKcFn2emH1Qs78UtLdI9HMdCl5VHQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062667235804-23avfu4ngc0gvcsq0dtuubbf0grkj2sr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
