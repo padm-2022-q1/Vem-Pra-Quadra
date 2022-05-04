@@ -12,7 +12,10 @@ interface UserDao {
     fun update(obj: User): UUID
 
     @Delete
-    fun delete(obj: User)
+    fun delete(obj: User): Boolean
+
+    @Delete
+    fun deleteAll(objects: List<User>): Boolean
 
     @Query("SELECT * FROM user")
     fun getAll(): List<User>

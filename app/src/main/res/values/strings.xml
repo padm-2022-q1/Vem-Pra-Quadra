@@ -31,8 +31,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="signup_personal_info_section_label">Personal info</string>
-    <string name="hint_signup_first_name">First name</string>
-    <string name="hint_signup_last_name">Last name</string>
+    <string name="hint_signup_name">Name</string>
+    <string name="hint_signup_username">Username</string>
     <string name="hint_signup_birth_date">Date of birth</string>
     <string name="hint_signup_gender">Gender</string>
     <string name="hint_signup_email">E-mail</string>
@@ -50,4 +50,7 @@
     <string name="hint_post_content">Content</string>
     <string name="text_action_cancel">Cancel</string>
     <string name="text_action_save">Save</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 </resources>

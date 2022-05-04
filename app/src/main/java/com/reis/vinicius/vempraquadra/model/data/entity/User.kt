@@ -3,6 +3,7 @@ package com.reis.vinicius.vempraquadra.model.data.entity
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import com.google.firebase.firestore.auth.User
 import java.util.*
 
 @Entity(
@@ -18,5 +19,6 @@ data class User (
     val userName: String,
     val email: String,
     val password: String,
-    val posts: List<Post>
+    val gender: String,
+    val birth: Date,
 )

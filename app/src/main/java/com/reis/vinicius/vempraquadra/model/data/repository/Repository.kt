@@ -5,11 +5,11 @@ interface Repository<T> {
 
     suspend fun getFirstOrDefault(predicate: (T) -> Boolean): T?
 
-    suspend fun insert(obj: T): T
+    suspend fun insert(obj: T): Any
 
-    suspend fun update(obj: T): T
+    suspend fun update(obj: T): Any
 
     suspend fun delete(obj: T): Boolean
 
-    suspend fun deleteAll(obj: T): Boolean
+    suspend fun deleteAll(objects: List<T>): Boolean
 }
