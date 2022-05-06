@@ -2,10 +2,10 @@ package com.reis.vinicius.vempraquadra.model.data.entity
 
 import java.util.*
 
-data class Match (
+data class UserData (
     val id: String,
     val name: String,
-    val date: Date,
-    val court: Court?,
-    val chat: Chat?,
+    val userName: String,
+    val gender: String,
+    val birth: Date,
 )

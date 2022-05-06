@@ -3,13 +3,13 @@ package com.reis.vinicius.vempraquadra.model.data.repository
 interface Repository<T> {
     suspend fun getAll(): List<T>
 
-    suspend fun getFirstOrDefault(predicate: (T) -> Boolean): T?
+    suspend fun getById(id: String): T?
 
-    suspend fun insert(obj: T): Any
+    suspend fun insert(obj: T): String
 
-    suspend fun update(obj: T): Any
+    suspend fun update(obj: T)
 
-    suspend fun delete(obj: T): Boolean
+    suspend fun delete(obj: T)
 
-    suspend fun deleteAll(objects: List<T>): Boolean
+    suspend fun deleteMany(objects: List<T>?)
 }

@@ -53,4 +53,6 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
+    <string name="action_select_birth_text">Select birth date</string>
+    <string name="e_mail">E-mail</string>
 </resources>
