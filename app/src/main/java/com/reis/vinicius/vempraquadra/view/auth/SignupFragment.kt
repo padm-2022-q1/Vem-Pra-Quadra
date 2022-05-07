@@ -20,7 +20,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentSignupBinding
-import com.reis.vinicius.vempraquadra.model.data.entity.UserData
+import com.reis.vinicius.vempraquadra.model.user.UserData
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.UserViewModel
 import kotlinx.coroutines.launch
@@ -107,7 +107,8 @@ class SignupFragment : Fragment() {
             binding.inputTextSignupUsername.text.toString(),
             binding.autoCompleteGender.toString(),
             Date()
-        ))
+        )
+    )
 
     private fun bindFormValidation() {
         lifecycle.coroutineScope.launch {

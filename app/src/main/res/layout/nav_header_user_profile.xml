@@ -29,7 +29,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_user_logout"
+        android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="@id/card_user_profile_pic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/card_user_profile_pic"

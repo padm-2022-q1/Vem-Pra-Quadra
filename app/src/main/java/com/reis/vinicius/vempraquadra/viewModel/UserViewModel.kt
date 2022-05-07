@@ -3,15 +3,17 @@ package com.reis.vinicius.vempraquadra.viewModel
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.liveData
-import com.reis.vinicius.vempraquadra.model.data.entity.UserData
-import com.reis.vinicius.vempraquadra.model.data.repository.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.user.UserData
+import com.reis.vinicius.vempraquadra.model.user.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import java.util.regex.Pattern
 
-class UserViewModel(application: Application): MainViewModel(application) {
-    private val repository = RepositoryFactory(application).create(RepositoryFactory.Object.User)
+class UserViewModel(application: Application): MainViewModel<UserData>(application) {
+    private val repository = RepositoryFactory(application)
+        .create(RepositoryFactory.Object.User) as UserDataRepository
     private val _name = MutableStateFlow("")
     private val _username = MutableStateFlow("")
     private val _email = MutableStateFlow("")
@@ -32,10 +34,19 @@ class UserViewModel(application: Application): MainViewModel(application) {
         return@combine isNameFilled and isUserNameFilled and isEmailValid and isPasswordConfirmed
     }
 
-    fun insert(userData: UserData) = liveData {
+    override fun getAll() = liveData {
         try {
             emit(Status.Loading)
-            emit(Status.Success(Result.Data(repository.insert(userData))))
+            emit(Status.Success(Result.Data(repository.getAll())))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to fetch all users", e)))
+        }
+    }
+
+    override fun insert(obj: UserData) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(repository.insert(obj))))
             _shouldRefresh.postValue(true)
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to add element", e)))

@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.model.data.entity
+package com.reis.vinicius.vempraquadra.model.chat
 
 import java.util.*
 

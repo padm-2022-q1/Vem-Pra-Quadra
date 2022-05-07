@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.model.data.entity
+package com.reis.vinicius.vempraquadra.model.user
 
 data class Address (
     val id: Long,

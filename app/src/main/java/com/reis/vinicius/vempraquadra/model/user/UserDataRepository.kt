@@ -1,11 +1,10 @@
-package com.reis.vinicius.vempraquadra.model.data.repository
+package com.reis.vinicius.vempraquadra.model.user
 
 import android.app.Application
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.reis.vinicius.vempraquadra.model.data.entity.UserData
-import com.reis.vinicius.vempraquadra.model.data.firestore.UserDataFirestore
+import com.reis.vcom.reis.vinicius.vempraquadra.model.courtinicius.vempraquadra.model.FirebaseRepository
 import kotlinx.coroutines.tasks.await
 
 class UserDataRepository(application: Application): FirebaseRepository<UserData>(application) {

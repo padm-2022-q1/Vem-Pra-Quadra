@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/nav_graph_main"
     app:startDestination="@id/destination_login">
 
     <fragment
@@ -31,4 +31,5 @@
         android:name="com.reis.vinicius.vempraquadra.view.auth.SignupFragment"
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" />
+
 </navigation>

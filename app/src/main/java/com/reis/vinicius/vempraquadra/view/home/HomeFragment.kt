@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentHomeBinding
 import com.reis.vinicius.vempraquadra.view.chat.ChatListFragment
+import com.reis.vinicius.vempraquadra.view.court.CourtListFragment
 import com.reis.vinicius.vempraquadra.view.feed.FeedFragment
 import com.reis.vinicius.vempraquadra.view.match.MatchesFragment
 
@@ -59,6 +60,7 @@ class HomeFragment : Fragment() {
                 R.id.item_main_menu_feed -> FeedFragment()
                 R.id.item_main_menu_chat -> ChatListFragment()
                 R.id.item_main_menu_matches -> MatchesFragment()
+                R.id.item_main_menu_courts -> CourtListFragment()
                 else -> FeedFragment()
             }
 

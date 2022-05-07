@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/chip_matches_list_title"
-            app:chipIcon="@drawable/ic_main_menu_match_list"
+            app:chipIcon="@drawable/ic_list"
             android:focusable="true"
             android:clickable="true" />
 
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/chip_matches_map_title"
-            app:chipIcon="@drawable/ic_main_menu_map"
+            app:chipIcon="@drawable/ic_map"
             android:focusable="true"
             android:clickable="true" />
 

@@ -1,7 +1,6 @@
-package com.reis.vinicius.vempraquadra.model.data.firestore
+package com.reis.vinicius.vempraquadra.model.match
 
 import java.util.*
-import com.reis.vinicius.vempraquadra.model.data.entity.Match
 
 data class MatchFirestore (
     val id: String?,

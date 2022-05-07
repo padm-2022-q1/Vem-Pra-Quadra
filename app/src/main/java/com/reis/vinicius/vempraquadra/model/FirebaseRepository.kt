@@ -1,10 +1,11 @@
-package com.reis.vinicius.vempraquadra.model.data.repository
+package com.reis.vcom.reis.vinicius.vempraquadra.model.courtinicius.vempraquadra.model
 
 import android.app.Application
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import com.google.firebase.firestore.Source
+import com.reis.vinicius.vempraquadra.model.Repository
 import java.util.concurrent.atomic.AtomicBoolean
 
 abstract class FirebaseRepository<T>(application: Application) : Repository<T> {

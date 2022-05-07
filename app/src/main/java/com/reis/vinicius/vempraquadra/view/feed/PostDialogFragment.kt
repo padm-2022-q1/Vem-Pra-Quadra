@@ -21,12 +21,6 @@ class PostDialogFragment : DialogFragment() {
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        bindFabEvents()
-    }
-
     private fun bindFabEvents(){
         binding.btnPostCancel.setOnClickListener {
             parentFragmentManager.popBackStack()

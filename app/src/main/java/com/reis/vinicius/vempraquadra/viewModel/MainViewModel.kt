@@ -2,12 +2,12 @@ package com.reis.vinicius.vempraquadra.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import com.reis.vinicius.vempraquadra.model.data.repository.RepositoryFactory
+import androidx.lifecycle.ViewModel
 import java.lang.Exception
 
-abstract class MainViewModel(application: Application): AndroidViewModel(application) {
+abstract class MainViewModel<T>(application: Application): AndroidViewModel(application) {
     protected val _shouldRefresh = MutableLiveData(true)
 
     sealed class Status {
@@ -17,6 +17,9 @@ abstract class MainViewModel(application: Application): AndroidViewModel(applica
     }
 
     sealed class Result {
-        class Data<T>(val obj: T): Result()
+        data class Data<T>(val obj: T): Result()
     }
+
+    abstract fun getAll(): LiveData<Status>
+    abstract fun insert(obj: T): LiveData<Status>
 }

@@ -49,10 +49,15 @@
     <string name="hint_post_title">Title</string>
     <string name="hint_post_content">Content</string>
     <string name="text_action_cancel">Cancel</string>
-    <string name="text_action_save">Save</string>
+    <string name="save">Save</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
     <string name="action_select_birth_text">Select birth date</string>
     <string name="e_mail">E-mail</string>
+    <string name="main_menu_courts_title">Courts</string>
+    <string name="court_name_text_default">Court name</string>
+    <string name="court_address_text_default">Court address</string>
+    <string name="text_court_distance_default">15 minutes from you</string>
+    <string name="address">Address</string>
 </resources>

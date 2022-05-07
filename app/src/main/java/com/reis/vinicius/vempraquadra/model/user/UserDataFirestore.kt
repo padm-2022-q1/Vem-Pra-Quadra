@@ -1,6 +1,5 @@
-package com.reis.vinicius.vempraquadra.model.data.firestore
+package com.reis.vinicius.vempraquadra.model.user
 
-import com.reis.vinicius.vempraquadra.model.data.entity.UserData
 import java.util.*
 
 data class UserDataFirestore (

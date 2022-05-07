@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.model.data.repository
+package com.reis.vinicius.vempraquadra.model
 
 interface Repository<T> {
     suspend fun getAll(): List<T>

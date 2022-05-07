@@ -33,11 +33,9 @@ class FeedFragment : Fragment() {
 
     private fun bindNewPostFabEvent(){
         binding.fabFeedCreatePost.setOnClickListener {
-            val postDialogFragment = PostDialogFragment()
-
             parentFragmentManager.commit {
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                replace(R.id.nav_host_fragment_content_home, postDialogFragment)
+                replace(R.id.nav_host_main, PostDialogFragment())
                 addToBackStack(null)
             }
         }

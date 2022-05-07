@@ -7,7 +7,7 @@
     android:padding="16dp">
 
     <Button
-        android:id="@+id/btn_post_cancel"
+        android:id="@+id/btn_court_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +18,7 @@
         style="@style/Widget.Material3.Button.TextButton.Icon" />
 
     <Button
-        android:id="@+id/btn_post_save"
+        android:id="@+id/btn_court_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -29,30 +29,32 @@
         style="@style/Widget.Material3.Button.TextButton" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_post_title"
+        android:id="@+id/text_layout_court_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_post_title"
+        android:hint="@string/hint_signup_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_post_save">
+        app:layout_constraintTop_toBottomOf="@id/btn_court_save">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_court_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/text_input_post_content"
+        android:id="@+id/text_layout_court_address"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:hint="@string/hint_post_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/address"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_input_post_title">
+        app:layout_constraintTop_toBottomOf="@id/text_layout_court_name">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_court_address"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="top" />
