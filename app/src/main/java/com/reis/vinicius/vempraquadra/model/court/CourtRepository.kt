@@ -3,16 +3,22 @@ package com.reis.vinicius.vempraquadra.model.court
 import android.app.Application
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.reis.vcom.reis.vinicius.vempraquadra.model.courtinicius.vempraquadra.model.FirebaseRepository
 import kotlinx.coroutines.tasks.await
+import kotlin.concurrent.timerTask
 
 class CourtRepository(application: Application): FirebaseRepository<Court>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
     private val collection = db.collection(CourtFirestore.CollectionName)
 
+    companion object {
+        private const val nextIdDoc = "courtId"
+    }
+
     override suspend fun getAll(): List<Court> =
-        collection.get(getSource()).await()
+        collection.whereGreaterThan(CourtFirestore.Fields.id, 0).get(getSource()).await()
             .toObjects(CourtFirestore::class.java).map { it.toEntity() }
 
     override suspend fun getById(id: String): Court =
@@ -20,12 +26,12 @@ class CourtRepository(application: Application): FirebaseRepository<Court>(appli
             .toObjects(CourtFirestore::class.java).first().toEntity()
 
     override suspend fun insert(obj: Court): String = CourtFirestore(
-        id = 0,
+        id = nextId(),
         name = obj.name,
         address = obj.address
     ).let {
         collection.add(it)
-        it.id?.toString() ?: throw Exception("Failed to add court")
+        it.id.toString()
     }
 
     override suspend fun update(obj: Court) {
@@ -56,4 +62,18 @@ class CourtRepository(application: Application): FirebaseRepository<Court>(appli
             queryDocumentSnapshot.reference.delete()
         }
     }
+
+    private suspend fun nextId(): Long =
+        collection.document(nextIdDoc).get(getSource()).await().let { documentSnapshot ->  
+            if (documentSnapshot.exists()) {
+                val oldValue = documentSnapshot.toObject(LongId::class.java)?.value
+                    ?: throw Exception("Failed to retrieve last id value")
+                LongId(oldValue + 1)
+            } else {
+                LongId(1)
+            }.let { newTaskId ->
+                documentSnapshot.reference.set(newTaskId)
+                newTaskId.value ?: throw Exception("Nww id should not be null")
+            }
+        }
 }

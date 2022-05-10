@@ -42,6 +42,8 @@ class CourtViewModel(application: Application): MainViewModel<Court>(application
         }
     }
 
+
+
     fun setName(name: String) { _name.value = name }
     fun setAddress(username: String) { _address.value = username }
 }

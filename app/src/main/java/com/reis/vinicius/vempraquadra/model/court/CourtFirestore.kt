@@ -6,7 +6,7 @@ data class CourtFirestore (
     val address: String? = null
 ){
     fun toEntity() = Court(
-        id = id ?: 0,
+        id = id,
         name = name ?: "",
         address = address ?: ""
     )

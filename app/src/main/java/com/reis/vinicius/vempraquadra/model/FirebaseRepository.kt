@@ -11,6 +11,10 @@ import java.util.concurrent.atomic.AtomicBoolean
 abstract class FirebaseRepository<T>(application: Application) : Repository<T> {
     val isConnected = AtomicBoolean(true)
 
+    data class LongId(
+        val value: Long? = null
+    )
+
     init {
         application.applicationContext.getSystemService(ConnectivityManager::class.java).apply {
             val connected = getNetworkCapabilities(activeNetwork)?.hasCapability(

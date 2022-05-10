@@ -41,7 +41,7 @@ class CourtListFragment : Fragment() {
 
     private fun bindFabEvents(){
         binding.fabMatchesCreate.setOnClickListener {
-            parentFragmentManager.commit {
+            requireActivity().supportFragmentManager.commit {
                 setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 replace(R.id.nav_host_main,
                     CourtAddDialogFragment(R.layout.content_dialog_new_court))
