@@ -32,7 +32,7 @@
         android:id="@+id/text_layout_court_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/hint_signup_name"
+        android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_court_save">

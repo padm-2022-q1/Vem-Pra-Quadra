@@ -31,7 +31,7 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="signup_personal_info_section_label">Personal info</string>
-    <string name="hint_signup_name">Name</string>
+    <string name="name">Name</string>
     <string name="hint_signup_username">Username</string>
     <string name="hint_signup_birth_date">Date of birth</string>
     <string name="hint_signup_gender">Gender</string>
@@ -60,4 +60,5 @@
     <string name="court_address_text_default">Court address</string>
     <string name="text_court_distance_default">15 minutes from you</string>
     <string name="address">Address</string>
+    <string name="date">Date</string>
 </resources>
