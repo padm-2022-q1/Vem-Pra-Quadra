@@ -3,6 +3,7 @@ package com.reis.vinicius.vempraquadra.viewModel
 import android.app.Application
 import androidx.lifecycle.liveData
 import com.reis.vinicius.vempraquadra.model.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.court.CourtRepository
 import com.reis.vinicius.vempraquadra.model.match.Match
 import com.reis.vinicius.vempraquadra.model.match.MatchRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,8 +13,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class MatchViewModel(application: Application): MainViewModel<Match>(application) {
-    private val repository = RepositoryFactory(application)
+    private val matchRepository = RepositoryFactory(application)
         .create(RepositoryFactory.Object.Match) as MatchRepository
+    private val courtRepository = RepositoryFactory(application)
+        .create(RepositoryFactory.Object.Court) as CourtRepository
     private val _name = MutableStateFlow("")
     private val _date = MutableStateFlow("")
     private val _courtId = MutableStateFlow(0L)
@@ -28,23 +31,32 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
         return@combine isNameFilled and isDateFilled and isFutureDate and isCourtSelected
     }
 
-    override fun getAll() = liveData {
+    fun getAll() = liveData {
         try {
             emit(Status.Loading)
-            emit(Status.Success(Result.Data(repository.getAll())))
+            emit(Status.Success(Result.Data(matchRepository.getAll())))
         }
         catch (e: Exception){
             emit(Status.Failure(Exception("Failed to fetch all objects", e)))
         }
     }
 
-    override fun insert(obj: Match) = liveData {
+    fun insert(match: Match) = liveData {
         try {
             emit(Status.Loading)
-            emit(Status.Success(Result.Data(repository.insert(obj))))
+            emit(Status.Success(Result.Data(matchRepository.insert(match))))
             _shouldRefresh.postValue(true)
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to add element", e)))
+        }
+    }
+
+    fun getAllCourts() = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(courtRepository.getAll())))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to fecth all court items", e)))
         }
     }
 

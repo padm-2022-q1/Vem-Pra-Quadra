@@ -22,7 +22,7 @@ class CourtViewModel(application: Application): MainViewModel<Court>(application
         return@combine isNameFilled and isAddressFilled
     }
 
-    override fun getAll() = liveData {
+    fun getAll() = liveData {
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(repository.getAll())))
@@ -32,7 +32,7 @@ class CourtViewModel(application: Application): MainViewModel<Court>(application
         }
     }
 
-    override fun insert(obj: Court) = liveData {
+    fun insert(obj: Court) = liveData {
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(repository.insert(obj))))
@@ -41,8 +41,6 @@ class CourtViewModel(application: Application): MainViewModel<Court>(application
             emit(Status.Failure(Exception("Failed to add element", e)))
         }
     }
-
-
 
     fun setName(name: String) { _name.value = name }
     fun setAddress(username: String) { _address.value = username }

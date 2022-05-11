@@ -19,7 +19,4 @@ abstract class MainViewModel<T>(application: Application): AndroidViewModel(appl
     sealed class Result {
         data class Data<T>(val obj: T): Result()
     }
-
-    abstract fun getAll(): LiveData<Status>
-    abstract fun insert(obj: T): LiveData<Status>
 }

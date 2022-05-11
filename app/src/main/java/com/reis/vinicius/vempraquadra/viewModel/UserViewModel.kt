@@ -34,7 +34,7 @@ class UserViewModel(application: Application): MainViewModel<UserData>(applicati
         return@combine isNameFilled and isUserNameFilled and isEmailValid and isPasswordConfirmed
     }
 
-    override fun getAll() = liveData {
+    fun getAll() = liveData {
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(repository.getAll())))
@@ -43,7 +43,7 @@ class UserViewModel(application: Application): MainViewModel<UserData>(applicati
         }
     }
 
-    override fun insert(obj: UserData) = liveData {
+    fun insert(obj: UserData) = liveData {
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(repository.insert(obj))))

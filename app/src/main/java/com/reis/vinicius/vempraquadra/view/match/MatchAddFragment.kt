@@ -20,7 +20,6 @@ import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
 class MatchAddFragment : Fragment() {
     private lateinit var binding: FragmentMatchAddBinding
     private val matchViewModel: MatchViewModel by activityViewModels()
-    private val courtViewModel: CourtViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +38,7 @@ class MatchAddFragment : Fragment() {
     }
 
     private fun composeCourtList(){
-        courtViewModel.getAll().observe(viewLifecycleOwner) { status ->
+        matchViewModel.getAllCourts().observe(viewLifecycleOwner) { status ->
             when (status) {
                 is MainViewModel.Status.Loading -> binding.inputLayoutMatchCourt.isEnabled = false
                 is MainViewModel.Status.Failure -> {
@@ -51,8 +50,8 @@ class MatchAddFragment : Fragment() {
                 }
                 is MainViewModel.Status.Success -> {
                     val courts = (status.result as MainViewModel.Result.Data<List<Court>>).obj
-                    val adapter = CourtDropdownListAdapter(requireContext(), R.layout.dropdown_list_item,
-                        R.id.text_item_name, courts)
+                    val adapter = CourtDropdownListAdapter(requireContext(),
+                        R.layout.dropdown_list_item, R.id.text_item_name, courts)
 
                     binding.autoCompleteMatchCourt.setAdapter(adapter)
                     binding.inputLayoutMatchCourt.isEnabled = true

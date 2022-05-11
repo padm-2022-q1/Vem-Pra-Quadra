@@ -60,4 +60,6 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- TODO: Add maps fragment -->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
