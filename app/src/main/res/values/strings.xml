@@ -61,4 +61,6 @@
     <string name="text_court_distance_default">15 minutes from you</string>
     <string name="address">Address</string>
     <string name="date">Date</string>
+    <string name="fab_create_match_content">Create match</string>
+    <string name="court">Court</string>
 </resources>

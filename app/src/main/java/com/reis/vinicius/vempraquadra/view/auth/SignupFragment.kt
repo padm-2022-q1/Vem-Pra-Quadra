@@ -91,8 +91,8 @@ class SignupFragment : Fragment() {
     private fun loadGenderDropdown() {
         val genders = listOf(R.string.male, R.string.female, R.string.other).map { getString(it) }
         val adapter = ArrayAdapter(
-            requireContext(), R.layout.list_item_gender,
-            R.id.text_gender_item, genders
+            requireContext(), R.layout.dropdown_list_item,
+            R.id.text_item_name, genders
         )
 
         (binding.inputLayoutSignupGender.editText as? AutoCompleteTextView)?.setAdapter(adapter)
