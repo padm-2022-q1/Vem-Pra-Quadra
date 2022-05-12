@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/destination_login"
         android:name="com.reis.vinicius.vempraquadra.view.auth.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/open_home"
@@ -28,16 +28,31 @@
         <action
             android:id="@+id/open_match_add"
             app:destination="@id/destination_match_add" />
+        <action
+            android:id="@+id/open_court_add"
+            app:destination="@id/destination_court_add" />
     </fragment>
     <fragment
         android:id="@+id/destination_signup"
         android:name="com.reis.vinicius.vempraquadra.view.auth.SignupFragment"
-        android:label="fragment_signup"
+        android:label="Sign up"
         tools:layout="@layout/fragment_signup" />
     <fragment
         android:id="@+id/destination_match_add"
         android:name="com.reis.vinicius.vempraquadra.view.match.MatchAddFragment"
-        android:label="fragment_match_add"
-        tools:layout="@layout/fragment_match_add" />
+        android:label="Add match"
+        tools:layout="@layout/fragment_match_add" >
+        <action
+            android:id="@+id/match_return_home"
+            app:destination="@id/destination_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_court_add"
+        android:name="com.reis.vinicius.vempraquadra.view.court.CourtAddDialogFragment"
+        android:label="Add court" >
+        <action
+            android:id="@+id/court_return_home"
+            app:destination="@id/destination_home" />
+    </fragment>
 
 </navigation>

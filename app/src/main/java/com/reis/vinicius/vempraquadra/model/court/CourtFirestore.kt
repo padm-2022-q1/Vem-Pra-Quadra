@@ -12,8 +12,6 @@ data class CourtFirestore (
     )
 
     companion object {
-        const val CollectionName = "courts"
-
         fun fromEntity(court: Court) = CourtFirestore(
             id = court.id,
             name = court.name,

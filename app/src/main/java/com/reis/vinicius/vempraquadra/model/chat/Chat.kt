@@ -4,5 +4,5 @@ import com.reis.vinicius.vempraquadra.model.match.Match
 
 data class Chat (
     val id: String,
-    val match: Match,
+    val match: Match?,
 )

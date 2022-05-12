@@ -7,10 +7,13 @@
         <entry key="app/src/main/res/layout/app_bar_home.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/content_dialog_new_court.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/content_home.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/dropdown_list_item.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_court_add.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_court_list.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_match_add.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/fragment_match_add.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_match_list.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_matches.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/list_item_gender.xml" value="0.3515625" />
         <entry key="app/src/main/res/menu/home_menu_user.xml" value="0.17708333333333334" />

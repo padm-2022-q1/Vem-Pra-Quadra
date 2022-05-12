@@ -3,29 +3,22 @@ package com.reis.vinicius.vempraquadra.model.match
 import java.util.*
 
 data class MatchFirestore (
-    val id: String?,
-    val name: String?,
-    val date: Date?,
-    val courtId: Long?,
-    val chatId: String?
+    val name: String? = null,
+    val date: Date? = Date(),
+    val courtId: Long? = 0,
 ){
-    fun toEntity() = Match(
+    fun toEntity(id: String) = Match(
         id = id ?: "",
         name = name ?: "",
         date = date ?: Date(),
-        court = null,
-        chat = null,
+        courtId = courtId ?: 0,
     )
 
     companion object {
-        const val CollectionName = "matches"
-
         fun fromEntity(match: Match) = MatchFirestore(
-            id = match.id,
             name = match.name,
             date = match.date,
-            courtId = match.court?.id,
-            chatId = match.chat?.id,
+            courtId = match.courtId,
         )
     }
 
@@ -34,6 +27,5 @@ data class MatchFirestore (
         const val name = "name"
         const val date = "date"
         const val courtId = "courtId"
-        const val chatId = "chatId"
     }
 }

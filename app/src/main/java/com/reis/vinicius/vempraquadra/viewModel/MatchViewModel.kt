@@ -24,7 +24,7 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
     val isSubmitEnabled: Flow<Boolean> = combine(_name, _date, _courtId) { name, date, courtId ->
         val isNameFilled = name.isNotEmpty()
         val isDateFilled = date.isNotEmpty()
-        val formattedDate = SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(date)
+        val formattedDate = if (date.isNotEmpty()) SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(date) else null
         val isFutureDate = formattedDate != null && formattedDate > Date()
         val isCourtSelected = courtId > 0L
 
@@ -61,6 +61,6 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
     }
 
     fun setName(name: String) { _name.value = name }
-    fun setAddress(username: String) { _date.value = username }
-    fun serCourtId(courtId: Long) { _courtId.value = courtId }
+    fun setDate(username: String) { _date.value = username }
+    fun setCourt(courtId: Long) { _courtId.value = courtId }
 }

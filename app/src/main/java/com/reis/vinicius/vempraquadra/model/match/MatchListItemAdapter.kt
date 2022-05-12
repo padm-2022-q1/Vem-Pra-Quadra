@@ -7,7 +7,9 @@ import com.reis.vinicius.vempraquadra.databinding.FragmentFeedItemBinding
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListBinding
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListItemBinding
 
-class MatchListItemAdapter : RecyclerView.Adapter<MatchListItemAdapter.Holder>() {
+class MatchListItemAdapter(
+    private val matches: List<Match>
+) : RecyclerView.Adapter<MatchListItemAdapter.Holder>() {
     inner class Holder(itemBinding: FragmentMatchListItemBinding):
         RecyclerView.ViewHolder(itemBinding.root){
             val name = itemBinding.textMatchListItemName
@@ -24,10 +26,14 @@ class MatchListItemAdapter : RecyclerView.Adapter<MatchListItemAdapter.Holder>()
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        return
+        val match = matches[position]
+
+        holder.name.text = match.name
+        holder.address.text = match.courtId.toString()
+        holder.startDate.text = match.date.toString()
     }
 
-    override fun getItemCount(): Int {
-        return 10
-    }
+    override fun getItemCount(): Int = matches.size
+
+    fun getId(position: Int): String = matches[position].id
 }

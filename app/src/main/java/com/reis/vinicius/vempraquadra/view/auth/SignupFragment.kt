@@ -139,44 +139,36 @@ class SignupFragment : Fragment() {
         binding.inputTextSignupName.addTextChangedListener { text ->
             viewModel.setName(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.inputTextSignupName.error = "Required field"
-            else
-                binding.inputTextSignupName.error = null
+            binding.inputTextSignupName.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
 
         binding.inputTextSignupUsername.addTextChangedListener { text ->
             viewModel.setUsername(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.inputTextSignupUsername.error = "Required field"
-            else
-                binding.inputTextSignupUsername.error = null
+            binding.inputTextSignupUsername.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
 
         binding.inputTextSignupEmail.addTextChangedListener { text ->
             viewModel.setEmail(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.inputTextSignupEmail.error = "Required field"
-            else
-                binding.inputTextSignupEmail.error = null
+            binding.inputTextSignupEmail.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
 
         binding.inputTextSignupPassword.addTextChangedListener { text ->
             viewModel.setPassword(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.inputTextSignupPassword.error = "Required field"
-            else
-                binding.inputTextSignupPassword.error = null
+            binding.inputTextSignupPassword.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
 
         binding.inputTextSignupPasswordConfirm.addTextChangedListener { text ->
             viewModel.setPassConfirm(text.toString())
 
             if (text.isNullOrEmpty())
-                binding.inputTextSignupPasswordConfirm.error = "Required field"
+                binding.inputTextSignupPasswordConfirm.error = getString(R.string.warning_required_field)
             else if (!binding.inputTextSignupPassword.text.isNullOrEmpty()
                 && text.trim().toString() != binding.inputTextSignupPassword.text.toString().trim())
                 binding.inputTextSignupUsername.error = null

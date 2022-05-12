@@ -6,12 +6,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.reis.vcom.reis.vinicius.vempraquadra.model.courtinicius.vempraquadra.model.FirebaseRepository
+import com.reis.vinicius.vempraquadra.model.RepositoryFactory
 import kotlinx.coroutines.tasks.await
 import kotlin.concurrent.timerTask
 
 class CourtRepository(application: Application): FirebaseRepository<Court>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
-    private val collection = db.collection(CourtFirestore.CollectionName)
+    private val collection = db.collection(RepositoryFactory.Collections.Court)
 
     companion object {
         private const val nextIdDoc = "courtId"
@@ -25,13 +26,8 @@ class CourtRepository(application: Application): FirebaseRepository<Court>(appli
         collection.whereEqualTo(CourtFirestore.Fields.id, id).get(getSource()).await()
             .toObjects(CourtFirestore::class.java).first().toEntity()
 
-    override suspend fun insert(obj: Court): String = CourtFirestore(
-        id = nextId(),
-        name = obj.name,
-        address = obj.address
-    ).let {
-        collection.add(it)
-        it.id.toString()
+    override suspend fun insert(obj: Court) {
+        collection.add(CourtFirestore.fromEntity(obj))
     }
 
     override suspend fun update(obj: Court) {
@@ -52,15 +48,6 @@ class CourtRepository(application: Application): FirebaseRepository<Court>(appli
 
                 querySnapshot.first().reference.delete()
             }
-    }
-
-    override suspend fun deleteMany(objects: List<Court>?) {
-        val results = if (objects == null) collection
-        else collection.whereIn(CourtFirestore.Fields.id, objects.map { it.id })
-
-        results.get(getSource()).await().forEach { queryDocumentSnapshot ->
-            queryDocumentSnapshot.reference.delete()
-        }
     }
 
     private suspend fun nextId(): Long =

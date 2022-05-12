@@ -5,11 +5,9 @@ interface Repository<T> {
 
     suspend fun getById(id: String): T?
 
-    suspend fun insert(obj: T): String
+    suspend fun insert(obj: T)
 
     suspend fun update(obj: T)
 
-    suspend fun delete(obj: T)
-
-    suspend fun deleteMany(objects: List<T>?)
+    suspend fun delete(obj: T): Any
 }

@@ -20,7 +20,7 @@ import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CourtAddDialogFragment(layoutId: Int) : DialogFragment(layoutId) {
+class CourtAddDialogFragment() : DialogFragment(R.layout.content_dialog_new_court) {
     private lateinit var binding: ContentDialogNewCourtBinding
     private val viewModel: CourtViewModel by activityViewModels()
 
@@ -42,7 +42,7 @@ class CourtAddDialogFragment(layoutId: Int) : DialogFragment(layoutId) {
     }
 
     override fun dismiss() {
-        requireActivity().supportFragmentManager.popBackStack()
+        findNavController().popBackStack()
     }
 
     private fun parseCourtData() = Court(
@@ -83,19 +83,15 @@ class CourtAddDialogFragment(layoutId: Int) : DialogFragment(layoutId) {
         binding.textInputCourtName.addTextChangedListener { text ->
             viewModel.setName(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.textLayoutCourtName.error = "Required field"
-            else
-                binding.textLayoutCourtName.error = null
+            binding.textLayoutCourtName.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
 
         binding.textInputCourtAddress.addTextChangedListener { text ->
             viewModel.setAddress(text.toString())
 
-            if (text.isNullOrEmpty())
-                binding.textLayoutCourtAddress.error = "Required field"
-            else
-                binding.textLayoutCourtAddress.error = null
+            binding.textLayoutCourtAddress.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
     }
 }

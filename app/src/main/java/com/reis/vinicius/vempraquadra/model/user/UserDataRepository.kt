@@ -19,15 +19,8 @@ class UserDataRepository(application: Application): FirebaseRepository<UserData>
         collection.whereEqualTo(UserDataFirestore.Fields.id, id).get(getSource()).await()
             .toObjects(UserDataFirestore::class.java).first().toEntity()
 
-    override suspend fun insert(obj: UserData): String = UserDataFirestore(
-        id = "",
-        name = obj.name,
-        userName = obj.userName,
-        gender = obj.gender,
-        birth = obj.birth
-    ).let {
-        collection.add(it)
-        it.id ?: throw Exception("Failed to add match")
+    override suspend fun insert(obj: UserData){
+        collection.add(UserDataFirestore.fromEntity(obj))
     }
 
     override suspend fun update(obj: UserData) {
@@ -48,14 +41,5 @@ class UserDataRepository(application: Application): FirebaseRepository<UserData>
 
                 querySnapshot.first().reference.delete()
             }
-    }
-
-    override suspend fun deleteMany(objects: List<UserData>?) {
-        val results = if (objects == null) collection
-        else collection.whereIn(UserDataFirestore.Fields.id, objects.map { it.id })
-
-        results.get(getSource()).await().forEach { queryDocumentSnapshot ->
-            queryDocumentSnapshot.reference.delete()
-        }
     }
 }

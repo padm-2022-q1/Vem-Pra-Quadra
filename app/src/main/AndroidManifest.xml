@@ -13,6 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VemPraQuadra.NoActionBar">
 
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBUO7EKcFn2emH1Qs78UtLdI9HMdCl5VHQ"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
