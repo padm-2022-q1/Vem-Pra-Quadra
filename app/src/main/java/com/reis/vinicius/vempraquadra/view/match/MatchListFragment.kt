@@ -13,7 +13,7 @@ import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListBinding
 import com.reis.vinicius.vempraquadra.model.feed.FeedListItemAdapter
 import com.reis.vinicius.vempraquadra.model.match.Match
 import com.reis.vinicius.vempraquadra.model.match.MatchListItemAdapter
-import com.reis.vinicius.vempraquadra.view.home.HomeFragmentDirections
+import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
 
@@ -43,7 +43,7 @@ class MatchListFragment : Fragment() {
 
     private fun bindFabEvents(){
         binding.fabCreateMatch.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.openMatchAdd())
+            findNavController().navigate(MainMenuFragmentDirections.openMatchAdd())
         }
     }
 

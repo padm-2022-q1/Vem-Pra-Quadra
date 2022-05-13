@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentCourtListBinding
 import com.reis.vinicius.vempraquadra.model.court.Court
 import com.reis.vinicius.vempraquadra.model.court.CourtListItemAdapter
-import com.reis.vinicius.vempraquadra.view.auth.LoginFragmentDirections
-import com.reis.vinicius.vempraquadra.view.home.HomeFragmentDirections
+import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.CourtViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 
@@ -44,7 +42,7 @@ class CourtListFragment : Fragment() {
 
     private fun bindFabEvents(){
         binding.fabMatchesCreate.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.openCourtAdd())
+            getNavController().navigate(MainMenuFragmentDirections.openCourtAdd())
         }
     }
 
@@ -71,4 +69,7 @@ class CourtListFragment : Fragment() {
             }
         }
     }
+
+    private fun getNavController() =
+        requireActivity().findNavController(R.id.nav_host_home)
 }

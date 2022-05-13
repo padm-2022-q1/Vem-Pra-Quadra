@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_home"
+    app:startDestination="@id/destination_main_menu">
+
+    <fragment
+        android:id="@+id/destination_main_menu"
+        android:name="com.reis.vinicius.vempraquadra.view.home.MainMenuFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/open_court_add"
+            app:destination="@id/destination_court_add" />
+        <action
+            android:id="@+id/open_match_add"
+            app:destination="@id/destination_match_add" />
+        <action
+            android:id="@+id/open_chat_details"
+            app:destination="@id/destination_chat_details" />
+    </fragment>
+    <fragment
+        android:id="@+id/destination_court_add"
+        android:name="com.reis.vinicius.vempraquadra.view.court.CourtAddFragment"
+        android:label="Add court" />
+    <fragment
+        android:id="@+id/destination_match_add"
+        android:name="com.reis.vinicius.vempraquadra.view.match.MatchAddFragment"
+        android:label="Add match"
+        tools:layout="@layout/fragment_match_add" />
+    <fragment
+        android:id="@+id/destination_chat_details"
+        android:name="com.reis.vinicius.vempraquadra.view.chat.ChatDetailsFragment"
+        android:label="Chat details"
+        tools:layout="@layout/fragment_chat_details" />
+</navigation>

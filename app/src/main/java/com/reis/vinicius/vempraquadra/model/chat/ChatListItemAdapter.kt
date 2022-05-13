@@ -8,7 +8,6 @@ import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
 class ChatListItemAdapter : RecyclerView.Adapter<ChatListItemAdapter.Holder>() {
     inner class Holder(itemBinding: FragmentChatListItemBinding):
         RecyclerView.ViewHolder(itemBinding.root){
-            val profilePicImage = itemBinding.imageChatItemProfilePic
             val name = itemBinding.textChatItemContactName
             val lastMessage = itemBinding.textChatItemLastMessageSummary
         }

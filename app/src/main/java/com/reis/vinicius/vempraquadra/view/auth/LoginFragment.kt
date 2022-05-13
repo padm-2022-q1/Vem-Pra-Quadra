@@ -41,7 +41,7 @@ class LoginFragment : Fragment() {
 
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    findNavController().navigate(LoginFragmentDirections.openHome())
+                    findNavController().navigate(LoginFragmentDirections.login())
                 } else {
                     Log.e("AUTH", "Failed to authenticate user", task.exception)
                     Snackbar.make(binding.root, "Failed to sign you in", Snackbar.LENGTH_LONG)

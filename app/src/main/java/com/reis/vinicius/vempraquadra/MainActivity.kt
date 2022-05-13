@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         auth.currentUser?.let {
-            getNavController().navigate(LoginFragmentDirections.openHome())
+            getNavController().navigate(LoginFragmentDirections.login())
         }
     }
 

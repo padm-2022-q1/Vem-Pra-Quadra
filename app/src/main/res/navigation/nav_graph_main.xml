@@ -1,58 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_main"
+    android:id="@+id/nav_graph_home"
     app:startDestination="@id/destination_login">
 
     <fragment
+        android:id="@+id/destination_home_container"
+        android:name="com.reis.vinicius.vempraquadra.view.home.HomeContainerFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_container" >
+        <action
+            android:id="@+id/logout"
+            app:destination="@id/destination_login" />
+    </fragment>
+    <fragment
         android:id="@+id/destination_login"
         android:name="com.reis.vinicius.vempraquadra.view.auth.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login">
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/open_home"
-            app:destination="@id/destination_home" />
+            android:id="@+id/login"
+            app:destination="@id/destination_home_container" />
         <action
             android:id="@+id/open_signup"
             app:destination="@id/destination_signup" />
     </fragment>
     <fragment
-        android:id="@+id/destination_home"
-        android:name="com.reis.vinicius.vempraquadra.view.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/open_login"
-            app:destination="@id/destination_login" />
-        <action
-            android:id="@+id/open_match_add"
-            app:destination="@id/destination_match_add" />
-        <action
-            android:id="@+id/open_court_add"
-            app:destination="@id/destination_court_add" />
-    </fragment>
-    <fragment
         android:id="@+id/destination_signup"
         android:name="com.reis.vinicius.vempraquadra.view.auth.SignupFragment"
-        android:label="Sign up"
-        tools:layout="@layout/fragment_signup" />
-    <fragment
-        android:id="@+id/destination_match_add"
-        android:name="com.reis.vinicius.vempraquadra.view.match.MatchAddFragment"
-        android:label="Add match"
-        tools:layout="@layout/fragment_match_add" >
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/match_return_home"
-            app:destination="@id/destination_home" />
-    </fragment>
-    <fragment
-        android:id="@+id/destination_court_add"
-        android:name="com.reis.vinicius.vempraquadra.view.court.CourtAddDialogFragment"
-        android:label="Add court" >
-        <action
-            android:id="@+id/court_return_home"
-            app:destination="@id/destination_home" />
+            android:id="@+id/return_to_login"
+            app:destination="@id/destination_login" />
     </fragment>
 
 </navigation>

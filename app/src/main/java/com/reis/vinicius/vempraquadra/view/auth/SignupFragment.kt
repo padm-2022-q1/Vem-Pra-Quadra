@@ -74,8 +74,8 @@ class SignupFragment : Fragment() {
                     viewModel.insert(userData as UserData).observe(viewLifecycleOwner) { status ->
                         when (status) {
                             is MainViewModel.Status.Success ->
-                                findNavController().navigate(LoginFragmentDirections.openHome()
-                                    , navOptions { popUpTo(R.id.destination_home) })
+                                findNavController().navigate(LoginFragmentDirections.login()
+                                    , navOptions { popUpTo(R.id.destination_home_container) })
                             is MainViewModel.Status.Loading -> {}
                             is MainViewModel.Status.Failure -> {
                                 Log.e("FRAGMENT", "Failed to save user data", status.e)
