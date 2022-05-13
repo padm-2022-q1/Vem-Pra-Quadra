@@ -64,4 +64,5 @@
     <string name="fab_create_match_content">Create match</string>
     <string name="court">Court</string>
     <string name="warning_required_field">Required field</string>
+    <string name="chat_new_message_hint">Hello...</string>
 </resources>

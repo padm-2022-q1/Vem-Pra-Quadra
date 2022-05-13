@@ -19,6 +19,9 @@
         <action
             android:id="@+id/open_chat_details"
             app:destination="@id/destination_chat_details" />
+        <action
+            android:id="@+id/open_post_dialog"
+            app:destination="@id/destination_post_dialog" />
     </fragment>
     <fragment
         android:id="@+id/destination_court_add"
@@ -34,4 +37,8 @@
         android:name="com.reis.vinicius.vempraquadra.view.chat.ChatDetailsFragment"
         android:label="Chat details"
         tools:layout="@layout/fragment_chat_details" />
+    <fragment
+        android:id="@+id/destination_post_dialog"
+        android:name="com.reis.vinicius.vempraquadra.view.feed.PostDialogFragment"
+        android:label="Create post" />
 </navigation>

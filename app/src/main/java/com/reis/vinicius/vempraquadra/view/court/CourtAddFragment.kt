@@ -36,12 +36,6 @@ class CourtAddFragment : Fragment() {
         appBar = requireActivity().findViewById<MaterialToolbar>(R.id.app_bar_main_menu)
 
         appBar.inflateMenu(R.menu.menu_court_add)
-
-        lifecycle.coroutineScope.launch {
-            viewModel.isSubmitEnabled.collect { value ->
-                appBar.menu.getItem(R.id.menu_item_court_save).isEnabled = value
-            }
-        }
     }
 
     override fun onStart() {
@@ -86,6 +80,12 @@ class CourtAddFragment : Fragment() {
     )
 
     private fun bindFormEvents(){
+        lifecycle.coroutineScope.launch {
+            viewModel.isSubmitEnabled.collect { value ->
+                appBar.menu.findItem(R.id.menu_item_court_save).isEnabled = value
+            }
+        }
+
         binding.textInputCourtName.addTextChangedListener { text ->
             viewModel.setName(text.toString())
 

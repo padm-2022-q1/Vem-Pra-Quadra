@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentFeedBinding
 import com.reis.vinicius.vempraquadra.model.feed.FeedListItemAdapter
+import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 
 class FeedFragment : Fragment() {
     private lateinit var binding: FragmentFeedBinding
@@ -33,11 +35,9 @@ class FeedFragment : Fragment() {
 
     private fun bindNewPostFabEvent(){
         binding.fabFeedCreatePost.setOnClickListener {
-            parentFragmentManager.commit {
-                setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                replace(R.id.nav_host_main, PostDialogFragment())
-                addToBackStack(null)
-            }
+            getNavController().navigate(MainMenuFragmentDirections.openPostDialog())
         }
     }
+
+    private fun getNavController() = requireActivity().findNavController(R.id.nav_host_home)
 }
