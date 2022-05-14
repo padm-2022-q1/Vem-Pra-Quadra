@@ -12,7 +12,7 @@ import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentCourtAddBinding
-import com.reis.vinicius.vempraquadra.model.court.Court
+import com.reis.vinicius.vempraquadra.model.entity.Court
 import com.reis.vinicius.vempraquadra.viewModel.CourtViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import kotlinx.coroutines.launch

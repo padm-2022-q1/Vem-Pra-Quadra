@@ -10,9 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListBinding
-import com.reis.vinicius.vempraquadra.model.feed.FeedListItemAdapter
-import com.reis.vinicius.vempraquadra.model.match.Match
-import com.reis.vinicius.vempraquadra.model.match.MatchListItemAdapter
+import com.reis.vinicius.vempraquadra.model.entity.Match
+import com.reis.vinicius.vempraquadra.model.adapter.MatchListItemAdapter
 import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel

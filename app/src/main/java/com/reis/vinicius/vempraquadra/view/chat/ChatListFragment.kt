@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.reis.vinicius.vempraquadra.model.chat.ChatListItemAdapter
+import com.reis.vinicius.vempraquadra.model.adapter.ChatListItemAdapter
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatListBinding
 
 class ChatListFragment : Fragment() {

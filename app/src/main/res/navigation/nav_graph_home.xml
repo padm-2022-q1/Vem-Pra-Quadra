@@ -22,6 +22,9 @@
         <action
             android:id="@+id/open_post_dialog"
             app:destination="@id/destination_post_dialog" />
+        <action
+            android:id="@+id/action_destination_main_menu_to_matchDetailsFragment"
+            app:destination="@id/destination_match_details" />
     </fragment>
     <fragment
         android:id="@+id/destination_court_add"
@@ -41,4 +44,15 @@
         android:id="@+id/destination_post_dialog"
         android:name="com.reis.vinicius.vempraquadra.view.feed.PostDialogFragment"
         android:label="Create post" />
+    <fragment
+        android:id="@+id/destination_match_details"
+        android:name="com.reis.vinicius.vempraquadra.view.match.MatchDetailsFragment"
+        android:label="Match details"
+        tools:layout="@layout/fragment_match_details">
+        <action
+            android:id="@+id/action_matchDetailsFragment_to_destination_match_add"
+            app:destination="@id/destination_match_add" />
+        <argument
+            android:name="matchId" />
+    </fragment>
 </navigation>

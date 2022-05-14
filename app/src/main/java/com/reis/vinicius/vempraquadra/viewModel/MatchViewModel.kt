@@ -2,10 +2,10 @@ package com.reis.vinicius.vempraquadra.viewModel
 
 import android.app.Application
 import androidx.lifecycle.liveData
-import com.reis.vinicius.vempraquadra.model.RepositoryFactory
-import com.reis.vinicius.vempraquadra.model.court.CourtRepository
-import com.reis.vinicius.vempraquadra.model.match.Match
-import com.reis.vinicius.vempraquadra.model.match.MatchRepository
+import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.repository.CourtRepository
+import com.reis.vinicius.vempraquadra.model.entity.Match
+import com.reis.vinicius.vempraquadra.model.repository.MatchRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -38,6 +38,15 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
         }
         catch (e: Exception){
             emit(Status.Failure(Exception("Failed to fetch all objects", e)))
+        }
+    }
+
+    fun getById(id: String, userId: String) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(matchRepository.getById(id))))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to get match with id $id", e)))
         }
     }
 

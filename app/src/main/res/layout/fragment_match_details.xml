@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="30dp"
+    tools:context=".view.match.MatchDetailsFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_match_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="invisible"
+        app:showAnimationBehavior="inward"
+        app:hideAnimationBehavior="outward" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/match_details_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_match_details_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_before_title_margin"
+            android:text="@string/match_list_name_default"
+            android:textAlignment="center"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_match_details_address"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/text_default_date"
+            app:layout_constraintBottom_toBottomOf="@id/btn_match_details_add_calendar"
+            app:layout_constraintEnd_toStartOf="@id/btn_match_details_add_calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_match_details_add_calendar" />
+
+        <ImageButton
+            android:id="@+id/btn_match_details_add_calendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/header_after_title_margin"
+            android:background="@color/fui_transparent"
+            android:contentDescription="@string/add_to_calendar"
+            android:src="@drawable/ic_calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_match_details_name" />
+
+        <TextView
+            android:id="@+id/match_details_court_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/court_name_text_default"
+            app:layout_constraintBottom_toBottomOf="@id/btn_match_details_navigate"
+            app:layout_constraintEnd_toStartOf="@id/btn_match_details_navigate"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_match_details_navigate" />
+
+        <ImageButton
+            android:id="@+id/btn_match_details_navigate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/details_between_element_margin"
+            android:background="@color/fui_transparent"
+            android:contentDescription="@string/add_to_calendar"
+            android:src="@drawable/ic_map"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_match_details_add_calendar" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_contained_match_details_map"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/details_between_element_margin"
+            app:layout_constraintBottom_toTopOf="@id/btn_match_details_join"
+            app:layout_constraintTop_toBottomOf="@id/btn_match_details_navigate" />
+
+        <Button
+            android:id="@+id/btn_match_details_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/join_match"
+            style="@style/Widget.Material3.Button.Icon"
+            app:icon="@drawable/ic_check" />
+
+        <Button
+            android:id="@+id/btn_match_details_leave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/leave_match"
+            style="@style/Widget.Material3.Button.OutlinedButton.Icon"
+            app:icon="@drawable/ic_close"
+            android:visibility="invisible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

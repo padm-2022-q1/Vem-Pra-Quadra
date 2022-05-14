@@ -117,7 +117,8 @@
         android:layout_marginBottom="@dimen/top_margin_between"
         android:hint="@string/hint_signup_password"
         app:layout_constraintTop_toBottomOf="@id/input_layout_signup_email"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_text_signup_password"
@@ -134,7 +135,8 @@
         android:layout_marginBottom="@dimen/top_margin_between"
         android:hint="@string/hint_signup_password_confirm"
         app:layout_constraintTop_toBottomOf="@id/input_layout_signup_password"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:endIconMode="password_toggle">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_text_signup_password_confirm"

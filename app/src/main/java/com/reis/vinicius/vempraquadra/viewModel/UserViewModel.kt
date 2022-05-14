@@ -3,9 +3,9 @@ package com.reis.vinicius.vempraquadra.viewModel
 import android.app.Application
 import android.util.Patterns
 import androidx.lifecycle.liveData
-import com.reis.vinicius.vempraquadra.model.RepositoryFactory
-import com.reis.vinicius.vempraquadra.model.user.UserData
-import com.reis.vinicius.vempraquadra.model.user.UserDataRepository
+import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.entity.UserData
+import com.reis.vinicius.vempraquadra.model.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

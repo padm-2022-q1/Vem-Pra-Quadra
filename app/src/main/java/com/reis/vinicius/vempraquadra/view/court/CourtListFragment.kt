@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentCourtListBinding
-import com.reis.vinicius.vempraquadra.model.court.Court
-import com.reis.vinicius.vempraquadra.model.court.CourtListItemAdapter
+import com.reis.vinicius.vempraquadra.model.entity.Court
+import com.reis.vinicius.vempraquadra.model.adapter.CourtListItemAdapter
 import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.CourtViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel

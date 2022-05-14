@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="@string/feed_item_created_date_default"
+        android:text="@string/text_default_date"
         android:textSize="12sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

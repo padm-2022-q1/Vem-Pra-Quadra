@@ -2,9 +2,9 @@ package com.reis.vinicius.vempraquadra.viewModel
 
 import android.app.Application
 import androidx.lifecycle.liveData
-import com.reis.vinicius.vempraquadra.model.RepositoryFactory
-import com.reis.vinicius.vempraquadra.model.court.Court
-import com.reis.vinicius.vempraquadra.model.court.CourtRepository
+import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
+import com.reis.vinicius.vempraquadra.model.entity.Court
+import com.reis.vinicius.vempraquadra.model.repository.CourtRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine

@@ -14,7 +14,7 @@
     <string name="feed_item_title_default">Feed item title</string>
     <string name="feed_item_content_default">Feed item content, that describes the details of this feed item</string>
     <string name="feed_item_calendar_icon_description">Calendar icon</string>
-    <string name="feed_item_created_date_default">2022-01-01 08:00:00 a.m.</string>
+    <string name="text_default_date">2022-01-01 08:00:00 a.m.</string>
     <string name="chat_item_contact_name_default">Contact name</string>
     <string name="chat_item_last_message_summary_default">Last message summarized</string>
     <string name="user_name_default">User\'s name</string>
@@ -65,4 +65,11 @@
     <string name="court">Court</string>
     <string name="warning_required_field">Required field</string>
     <string name="chat_new_message_hint">Hello...</string>
+    <string name="send_message">Send message</string>
+    <string name="send">Send</string>
+    <string name="chat_message_default_text">This is a message used as model do the default layout</string>
+    <string name="sent_message_status_default">Sent message status</string>
+    <string name="add_to_calendar">Add to calendar</string>
+    <string name="join_match">Join match</string>
+    <string name="leave_match">Leave match</string>
 </resources>
