@@ -38,7 +38,9 @@ class MatchListFragment : Fragment() {
         refresh()
     }
 
-    private fun bindRefreshEvent(){ binding.matchSwipeRefreshLayout.setOnRefreshListener { refresh() } }
+    private fun bindRefreshEvent(){
+        binding.matchSwipeRefreshLayout.setOnRefreshListener { refresh() }
+    }
 
     private fun bindFabEvents(){
         binding.fabCreateMatch.setOnClickListener {
@@ -59,7 +61,7 @@ class MatchListFragment : Fragment() {
                 }
                 is MainViewModel.Status.Success -> {
                     val matches = (status.result as MainViewModel.Result.Data<List<Match>>).obj
-                    val adapter = MatchListItemAdapter(matches)
+                    val adapter = MatchListItemAdapter(findNavController(), matches)
 
                     binding.recyclerMatchList.swapAdapter(adapter, false)
                     binding.matchSwipeRefreshLayout.isRefreshing = false

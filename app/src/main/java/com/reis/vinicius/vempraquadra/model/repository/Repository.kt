@@ -5,10 +5,11 @@ interface Repository<T> {
         const val Court = "courts"
         const val Match = "matches"
         const val Chat = "chats"
+        const val UserData = "usersData"
     }
 
     enum class Type {
-        User,
+        UserData,
         Court,
         Match,
         Chat,

@@ -12,6 +12,8 @@ import androidx.lifecycle.coroutineScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchAddBinding
 import com.reis.vinicius.vempraquadra.model.entity.Court
@@ -25,6 +27,7 @@ import java.util.*
 
 class MatchAddFragment : Fragment() {
     private lateinit var binding: FragmentMatchAddBinding
+    private val auth = Firebase.auth
     private val viewModel: MatchViewModel by activityViewModels()
     private var selectedCourtId = 0L
     private val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -119,7 +122,8 @@ class MatchAddFragment : Fragment() {
             id = "",
             name = binding.textInputMatchName.text.toString(),
             date = dateParser.parse(binding.textInputMatchDate.text.toString()) ?: Date(),
-            courtId = selectedCourtId
+            courtId = selectedCourtId,
+            usersIds = arrayListOf( auth.currentUser?.uid ?: "" )
         )
     }
 

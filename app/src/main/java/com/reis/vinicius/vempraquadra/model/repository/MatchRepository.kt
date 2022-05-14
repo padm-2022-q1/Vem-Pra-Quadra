@@ -12,6 +12,8 @@ import com.reis.vinicius.vempraquadra.model.firestore.MatchFirestore
 import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.model.firestore.CourtFirestore
 import kotlinx.coroutines.tasks.await
+import java.lang.reflect.Executable
+import java.util.*
 
 class MatchRepository(application: Application): FirestoreRepository<Match>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
@@ -53,21 +55,34 @@ class MatchRepository(application: Application): FirestoreRepository<Match>(appl
     suspend fun getFullMatchById(id: String): MatchWithCourt {
         lateinit var result: MatchWithCourt
 
-        db.runTransaction { transaction ->
-            val matchDoc = collection.document(id)
-            val match = transaction.get(matchDoc).toObject(MatchFirestore::class.java)
+        collection.document(id).get().await().toObject(MatchFirestore::class.java)?.let { match ->
+            val court = db.collection(Repository.Collections.Court)
+                .whereEqualTo(CourtFirestore.Fields.id, match.courtId).get().await().firstOrNull()
+                ?.toObject(CourtFirestore::class.java)?.toEntity()
+                ?: throw Exception("Failed to find court with id ${match.courtId}")
 
-            match?.let {
-                val courtDoc = db.collection(Repository.Collections.Court)
-                    .whereEqualTo(CourtFirestore.Fields.id, it.courtId).get().result.first().reference
+            result = MatchWithCourt(match.toEntity(id), court)
+        } ?: throw Exception("Failed to find match with id $id")
 
-                val court = transaction.get(courtDoc).toObject(CourtFirestore::class.java)
-                    ?:
+        return result
+    }
 
-                result = MatchWithCourt(match.toEntity(matchDoc.id), court.toEntity())
-            }
-        }.await()
+    suspend fun joinMatch(id: String, userId: String) {
+        collection.document(id).get().await()?.let { documentSnapshot ->
+            val match = documentSnapshot.toObject(MatchFirestore::class.java)
+                ?: throw Exception("Failed to parse match with $id")
+            var newUsersIds = match.usersIds.toMutableList()
+            newUsersIds.add(userId)
+            val newMatch = Match(
+                id = id,
+                name = match.name ?: "",
+                date = match.date ?: Date(),
+                courtId = match.courtId,
+                usersIds = newUsersIds.toList()
+            )
 
+            documentSnapshot.reference.set(match)
 
+        } ?: throw Exception("Failed to get match with id $id")
     }
 }

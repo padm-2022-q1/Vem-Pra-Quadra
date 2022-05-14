@@ -11,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 
 class ChatRepository(application: Application): FirestoreRepository<Chat>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
-    private val collection = db.collection(RepositoryFactory.Collections.Chat)
+    private val collection = db.collection(Repository.Collections.Chat)
 
     override suspend fun getAll(): List<Chat> =
         collection.get(getSource()).await().map { it.toObject<ChatFirestore>().toEntity(it.id) }

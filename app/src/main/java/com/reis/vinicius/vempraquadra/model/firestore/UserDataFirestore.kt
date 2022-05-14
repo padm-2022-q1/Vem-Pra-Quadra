@@ -19,8 +19,6 @@ data class UserDataFirestore (
     )
 
     companion object {
-        const val CollectionName = "usersData"
-
         fun fromEntity (userData: UserData) = UserDataFirestore(
             id = userData.id,
             name = userData.name,

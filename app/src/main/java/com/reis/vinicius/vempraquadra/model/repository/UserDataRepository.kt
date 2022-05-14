@@ -10,7 +10,7 @@ import kotlinx.coroutines.tasks.await
 
 class UserDataRepository(application: Application): FirestoreRepository<UserData>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
-    private val collection = db.collection(UserDataFirestore.CollectionName)
+    private val collection = db.collection(Repository.Collections.UserData)
 
     override suspend fun getAll(): List<UserData> =
         collection.get(getSource()).await()

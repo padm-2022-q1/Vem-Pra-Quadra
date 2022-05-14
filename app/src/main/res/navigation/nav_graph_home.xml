@@ -23,7 +23,7 @@
             android:id="@+id/open_post_dialog"
             app:destination="@id/destination_post_dialog" />
         <action
-            android:id="@+id/action_destination_main_menu_to_matchDetailsFragment"
+            android:id="@+id/open_match_details"
             app:destination="@id/destination_match_details" />
     </fragment>
     <fragment
@@ -50,7 +50,7 @@
         android:label="Match details"
         tools:layout="@layout/fragment_match_details">
         <action
-            android:id="@+id/action_matchDetailsFragment_to_destination_match_add"
+            android:id="@+id/edit_existing_match"
             app:destination="@id/destination_match_add" />
         <argument
             android:name="matchId" />

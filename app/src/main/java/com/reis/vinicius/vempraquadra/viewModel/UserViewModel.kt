@@ -5,6 +5,7 @@ import android.util.Patterns
 import androidx.lifecycle.liveData
 import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
 import com.reis.vinicius.vempraquadra.model.entity.UserData
+import com.reis.vinicius.vempraquadra.model.repository.Repository
 import com.reis.vinicius.vempraquadra.model.repository.UserDataRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,7 @@ import java.util.regex.Pattern
 
 class UserViewModel(application: Application): MainViewModel<UserData>(application) {
     private val repository = RepositoryFactory(application)
-        .create(RepositoryFactory.Object.User) as UserDataRepository
+        .create(Repository.Type.UserData) as UserDataRepository
     private val _name = MutableStateFlow("")
     private val _username = MutableStateFlow("")
     private val _email = MutableStateFlow("")

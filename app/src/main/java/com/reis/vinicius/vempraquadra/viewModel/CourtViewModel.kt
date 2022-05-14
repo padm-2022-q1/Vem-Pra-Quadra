@@ -5,13 +5,14 @@ import androidx.lifecycle.liveData
 import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
 import com.reis.vinicius.vempraquadra.model.entity.Court
 import com.reis.vinicius.vempraquadra.model.repository.CourtRepository
+import com.reis.vinicius.vempraquadra.model.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 
 class CourtViewModel(application: Application): MainViewModel<Court>(application) {
     private val repository = RepositoryFactory(application)
-        .create(RepositoryFactory.Object.Court) as CourtRepository
+        .create(Repository.Type.Court) as CourtRepository
     private val _name = MutableStateFlow("")
     private val _address = MutableStateFlow("")
 

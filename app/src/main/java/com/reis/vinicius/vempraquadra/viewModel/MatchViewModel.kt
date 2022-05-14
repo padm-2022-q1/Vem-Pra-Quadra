@@ -6,6 +6,7 @@ import com.reis.vinicius.vempraquadra.model.repository.RepositoryFactory
 import com.reis.vinicius.vempraquadra.model.repository.CourtRepository
 import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.model.repository.MatchRepository
+import com.reis.vinicius.vempraquadra.model.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -14,9 +15,9 @@ import java.util.*
 
 class MatchViewModel(application: Application): MainViewModel<Match>(application) {
     private val matchRepository = RepositoryFactory(application)
-        .create(RepositoryFactory.Object.Match) as MatchRepository
+        .create(Repository.Type.Match) as MatchRepository
     private val courtRepository = RepositoryFactory(application)
-        .create(RepositoryFactory.Object.Court) as CourtRepository
+        .create(Repository.Type.Court) as CourtRepository
     private val _name = MutableStateFlow("")
     private val _date = MutableStateFlow("")
     private val _courtId = MutableStateFlow(0L)
@@ -66,6 +67,24 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
             emit(Status.Success(Result.Data(courtRepository.getAll())))
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to fecth all court items", e)))
+        }
+    }
+
+    fun getMatchWithCourt(id: String) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(matchRepository.getFullMatchById(id))))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to get match object with court", e)))
+        }
+    }
+
+    fun joinMatch(id: String, userId: String) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(matchRepository.joinMatch(id, userId))))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to add user with id $userId to match with id $id", e)))
         }
     }
 
