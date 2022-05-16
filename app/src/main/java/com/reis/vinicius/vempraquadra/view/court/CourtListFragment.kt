@@ -59,8 +59,8 @@ class CourtListFragment : Fragment() {
                         Snackbar.LENGTH_LONG).show()
                 }
                 is MainViewModel.Status.Success -> {
-                    val tasks = (status.result as MainViewModel.Result.Data<List<Court>>).obj
-                    val adapter = CourtListItemAdapter(this, tasks)
+                    val courts = (status.result as MainViewModel.Result.Data<List<Court>>).obj
+                    val adapter = CourtListItemAdapter(this, courts)
 
                     binding.recyclerCourts.swapAdapter(adapter, false)
                     binding.courtSwipeRefreshLayout.isRefreshing = false

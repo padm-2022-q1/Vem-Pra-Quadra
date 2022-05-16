@@ -79,10 +79,10 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
         }
     }
 
-    fun joinMatch(id: String, userId: String) = liveData {
+    fun changeAttendance(id: String, userId: String, join: Boolean) = liveData {
         try {
             emit(Status.Loading)
-            emit(Status.Success(Result.Data(matchRepository.joinMatch(id, userId))))
+            emit(Status.Success(Result.Data(matchRepository.changeAttendance(id, userId, join))))
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to add user with id $userId to match with id $id", e)))
         }

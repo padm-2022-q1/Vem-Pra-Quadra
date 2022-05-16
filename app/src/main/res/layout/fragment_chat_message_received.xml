@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/text_received_message_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@string/text_default_date"
+                android:text="@string/text_default_datetime"
                 android:textSize="11sp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

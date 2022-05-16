@@ -14,7 +14,7 @@
     <string name="feed_item_title_default">Feed item title</string>
     <string name="feed_item_content_default">Feed item content, that describes the details of this feed item</string>
     <string name="feed_item_calendar_icon_description">Calendar icon</string>
-    <string name="text_default_date">2022-01-01 08:00:00 a.m.</string>
+    <string name="text_default_datetime">2022-01-01 08:00:00 a.m.</string>
     <string name="chat_item_contact_name_default">Contact name</string>
     <string name="chat_item_last_message_summary_default">Last message summarized</string>
     <string name="user_name_default">User\'s name</string>
@@ -72,4 +72,7 @@
     <string name="add_to_calendar">Add to calendar</string>
     <string name="join_match">Join match</string>
     <string name="leave_match">Leave match</string>
+    <string name="unread_message_description">Unread message</string>
+    <string name="text_default_date">01/01/2022</string>
+    <string name="chat_no_messages_warning">No messages sent yet</string>
 </resources>

@@ -11,12 +11,12 @@ import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMainMenuBinding
 import com.reis.vinicius.vempraquadra.view.chat.ChatListFragment
 import com.reis.vinicius.vempraquadra.view.court.CourtListFragment
-import com.reis.vinicius.vempraquadra.view.feed.FeedFragment
 import com.reis.vinicius.vempraquadra.view.match.MatchesFragment
 
 class MainMenuFragment : Fragment() {
     private lateinit var binding: FragmentMainMenuBinding
     private lateinit var appBar: MaterialToolbar
+    private var currentMenuItemId = R.id.item_main_menu_matches
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,25 +35,27 @@ class MainMenuFragment : Fragment() {
         appBar.menu.clear()
 
         bindBottomNavEvents()
-        parentFragmentManager.commit {
-            replace(binding.mainMenuFragmentContainer.id, FeedFragment())
-        }
+        loadTab(currentMenuItemId)
     }
 
     private fun bindBottomNavEvents() {
         binding.bottomNavMainMenu.setOnItemSelectedListener { item ->
-            val fragment = when (item.itemId){
-                R.id.item_main_menu_feed -> FeedFragment()
-                R.id.item_main_menu_chat -> ChatListFragment()
-                R.id.item_main_menu_matches -> MatchesFragment()
-                R.id.item_main_menu_courts -> CourtListFragment()
-                else -> FeedFragment()
-            }
-
-            parentFragmentManager.commit {
-                replace(binding.mainMenuFragmentContainer.id, fragment)
-            }
+            currentMenuItemId = item.itemId
+            loadTab(currentMenuItemId)
             true
+        }
+    }
+
+    private fun loadTab(itemId: Int){
+        val fragment = when (itemId){
+            R.id.item_main_menu_matches -> MatchesFragment()
+            R.id.item_main_menu_chat -> ChatListFragment()
+            R.id.item_main_menu_courts -> CourtListFragment()
+            else -> MatchesFragment()
+        }
+
+        parentFragmentManager.commit {
+            replace(binding.mainMenuFragmentContainer.id, fragment)
         }
     }
 }

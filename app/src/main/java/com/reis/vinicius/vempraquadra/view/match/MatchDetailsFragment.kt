@@ -1,21 +1,23 @@
 package com.reis.vinicius.vempraquadra.view.match
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchDetailsBinding
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
-import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
 
@@ -51,21 +53,24 @@ class MatchDetailsFragment : Fragment() {
     }
 
     private fun bindJoinMatchEvent(){
-        binding.btnMatchDetailsJoin.setOnClickListener {
-            viewModel.joinMatch(matchCache.value?.match?.id ?: "",
-                auth.currentUser?.uid ?: "").observe(viewLifecycleOwner) { status ->
+        binding.btnMatchDetailsChangeAttendance.setOnClickListener {
+            viewModel.changeAttendance(
+                matchCache.value?.match?.id ?: "",
+                auth.currentUser?.uid ?: "",
+                matchCache.value?.match?.usersIds?.contains(auth.currentUser?.uid ?: "") ?: true)
+                .observe(viewLifecycleOwner) { status ->
                     when (status) {
                         is MainViewModel.Status.Loading -> {
-                            binding.btnMatchDetailsJoin.isEnabled = false
+                            binding.btnMatchDetailsChangeAttendance.isEnabled = false
                         }
                         is MainViewModel.Status.Failure -> {
-                            binding.btnMatchDetailsJoin.isEnabled = true
+                            binding.btnMatchDetailsChangeAttendance.isEnabled = true
                             Log.e("FRAGMENT", "Failed to join match", status.e)
-                            showSnackbar("Failed to join match. Please, try again later.")
+                            showMessage("Failed to join match. Please, try again later.")
                         }
                         is MainViewModel.Status.Success -> {
                             toggleJoinMatchButton(false)
-                            binding.btnMatchDetailsJoin.isEnabled = true
+                            binding.btnMatchDetailsChangeAttendance.isEnabled = true
                         }
                     }
             }
@@ -78,7 +83,7 @@ class MatchDetailsFragment : Fragment() {
                 is MainViewModel.Status.Loading -> toggleLayout(false)
                 is MainViewModel.Status.Failure -> {
                     Log.e("FRAGMENT", "Failed to show match details", status.e)
-                    showSnackbar(status.e.message)
+                    showMessage(status.e.message)
                 }
                 is MainViewModel.Status.Success -> {
                     val match = (status.result as MainViewModel.Result.Data<MatchWithCourt>).obj
@@ -97,12 +102,26 @@ class MatchDetailsFragment : Fragment() {
 
             toggleJoinMatchButton(!match.match.usersIds.any { it == auth.currentUser?.uid })
             toggleLayout(true)
+
+            // TODO("Fill map fragment")
         }
     }
 
     private fun toggleJoinMatchButton(show: Boolean){
-        binding.btnMatchDetailsJoin.visibility = if (show) View.VISIBLE else View.INVISIBLE
-        binding.btnMatchDetailsLeave.visibility = if (!show) View.VISIBLE else View.INVISIBLE
+        if (show){
+            binding.btnMatchDetailsChangeAttendance.text = getString(R.string.join_match)
+            binding.btnMatchDetailsChangeAttendance.setIconResource(R.drawable.ic_check)
+            binding.btnMatchDetailsChangeAttendance.iconTint = ColorStateList.valueOf(Color.WHITE)
+            binding.btnMatchDetailsChangeAttendance.setTextColor(Color.WHITE)
+            binding.btnMatchDetailsChangeAttendance.backgroundTintList =
+                ColorStateList.valueOf(ResourcesCompat.getColor(resources, R.color.purple_500, null))
+        } else {
+            binding.btnMatchDetailsChangeAttendance.text = getString(R.string.leave_match)
+            binding.btnMatchDetailsChangeAttendance.setIconResource(R.drawable.ic_close)
+            binding.btnMatchDetailsChangeAttendance.backgroundTintList = ColorStateList.valueOf(Color.RED)
+            binding.btnMatchDetailsChangeAttendance.setTextColor(Color.WHITE)
+            binding.btnMatchDetailsChangeAttendance.iconTint = ColorStateList.valueOf(Color.WHITE)
+        }
     }
 
     private fun toggleLayout(show: Boolean) {
@@ -110,7 +129,7 @@ class MatchDetailsFragment : Fragment() {
         binding.progressMatchDetails.visibility = if (!show) View.VISIBLE else View.INVISIBLE
     }
 
-    private fun showSnackbar(message: String?) {
+    private fun showMessage(message: String?) {
         Snackbar.make(binding.root, message ?: "Please, try again later",
             Snackbar.LENGTH_LONG).show()
     }

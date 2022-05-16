@@ -20,4 +20,24 @@ class ChatViewModel(application: Application): MainViewModel<Chat>(application) 
             emit(Status.Failure(Exception("Failed to fetch all objects", e)))
         }
     }
+
+    fun getAllByUser(userId: String) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(chatRepository.getAllByUser(userId))))
+        }
+        catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to fetch objects from user $userId", e)))
+        }
+    }
+
+    fun getWithMessagesById(id: String) = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(chatRepository.getWithMessagesById(id))))
+        }
+        catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to fetch object with id $id", e)))
+        }
+    }
 }

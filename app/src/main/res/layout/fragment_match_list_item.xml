@@ -37,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
-        android:text="@string/text_default_date"
+        android:text="@string/text_default_datetime"
         android:textSize="12sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

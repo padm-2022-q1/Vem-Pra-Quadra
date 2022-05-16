@@ -6,6 +6,7 @@ interface Repository<T> {
         const val Match = "matches"
         const val Chat = "chats"
         const val UserData = "usersData"
+        const val ChatMessage = "messages"
     }
 
     enum class Type {

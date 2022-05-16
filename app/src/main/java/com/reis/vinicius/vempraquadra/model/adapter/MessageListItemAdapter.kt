@@ -9,17 +9,20 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatMessageSentBinding
 import com.reis.vinicius.vempraquadra.model.entity.Chat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatListItemAdapter(
+class MessageListItemAdapter(
     private val context: Context,
     private val navController: NavController,
     private val chats: List<Chat>,
     private val userId: String
-) : RecyclerView.Adapter<ChatListItemAdapter.Holder>() {
-    inner class Holder(itemBinding: FragmentChatListItemBinding):
+) : RecyclerView.Adapter<MessageListItemAdapter.Holder>() {
+    inner class MessageSentHolder(itemBinding: FragmentChatMessageSentBinding):
+        // TODO("Create view holders")
+
         RecyclerView.ViewHolder(itemBinding.root){
             val name = itemBinding.textChatItemContactName
             val lastMessageContent = itemBinding.textChatItemLastMessageSummary

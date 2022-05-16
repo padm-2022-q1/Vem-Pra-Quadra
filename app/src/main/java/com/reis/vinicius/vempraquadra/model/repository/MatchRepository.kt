@@ -5,14 +5,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.reis.vinicius.vempraquadra.model.adapter.CourtDropdownListAdapter
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
 import com.reis.vinicius.vempraquadra.model.firestore.ChatFirestore
 import com.reis.vinicius.vempraquadra.model.firestore.MatchFirestore
 import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.model.firestore.CourtFirestore
 import kotlinx.coroutines.tasks.await
-import java.lang.reflect.Executable
 import java.util.*
 
 class MatchRepository(application: Application): FirestoreRepository<Match>(application) {
@@ -67,21 +65,25 @@ class MatchRepository(application: Application): FirestoreRepository<Match>(appl
         return result
     }
 
-    suspend fun joinMatch(id: String, userId: String) {
+    suspend fun changeAttendance(id: String, userId: String, join: Boolean) {
         collection.document(id).get().await()?.let { documentSnapshot ->
             val match = documentSnapshot.toObject(MatchFirestore::class.java)
                 ?: throw Exception("Failed to parse match with $id")
             var newUsersIds = match.usersIds.toMutableList()
-            newUsersIds.add(userId)
-            val newMatch = Match(
-                id = id,
+
+            if (join)
+                newUsersIds.add(userId)
+            else
+                newUsersIds.remove(userId)
+
+            val updatedMatch = MatchFirestore(
                 name = match.name ?: "",
                 date = match.date ?: Date(),
                 courtId = match.courtId,
                 usersIds = newUsersIds.toList()
             )
 
-            documentSnapshot.reference.set(match)
+            documentSnapshot.reference.set(updatedMatch)
 
         } ?: throw Exception("Failed to get match with id $id")
     }

@@ -16,4 +16,5 @@
     <dimen name="header_before_title_margin">40dp</dimen>
     <dimen name="header_after_title_margin">24dp</dimen>
     <dimen name="title_text_size">24sp</dimen>
+    <dimen name="unread_message_size">12dp</dimen>
 </resources>

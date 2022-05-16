@@ -33,7 +33,7 @@ class CourtAddFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        appBar = requireActivity().findViewById<MaterialToolbar>(R.id.app_bar_main_menu)
+        appBar = requireActivity().findViewById(R.id.app_bar_main_menu)
 
         appBar.inflateMenu(R.menu.menu_court_add)
     }
