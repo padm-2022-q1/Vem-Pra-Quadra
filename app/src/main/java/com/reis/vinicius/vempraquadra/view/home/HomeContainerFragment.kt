@@ -40,6 +40,10 @@ class HomeContainerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (auth.currentUser == null){
+            getNavController(R.id.nav_host_main).navigate(HomeContainerFragmentDirections.logout())
+        }
+
         val appBar = binding.appBarMainMenu
         val drawerLayout = binding.drawerLayoutHome
         val navView = binding.navView
@@ -82,7 +86,7 @@ class HomeContainerFragment : Fragment() {
 
         btnLogout.setOnClickListener {
             auth.signOut()
-//            getNavController(R.id.nav_host_main).navigate(MainMenuFragmentDirections.logout())
+            getNavController(R.id.nav_host_main).navigate(HomeContainerFragmentDirections.logout())
         }
     }
 

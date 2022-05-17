@@ -3,6 +3,7 @@ package com.reis.vinicius.vempraquadra
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.databinding.ActivityMainBinding
@@ -21,6 +22,11 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (auth.currentUser != null){
+            (supportFragmentManager.findFragmentById(R.id.main_menu_fragment_container)
+                    as? NavHostFragment)?.navController?.navigate(R.id.login_to_home)
+        }
     }
 
     private fun getNavController(viewId: Int) = findNavController(viewId)

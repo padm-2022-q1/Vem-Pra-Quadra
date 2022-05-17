@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph_home"
-    app:startDestination="@id/destination_login">
+    android:id="@+id/nav_graph_main"
+    app:startDestination="@id/destination_home_container">
 
     <fragment
         android:id="@+id/destination_login"
@@ -14,6 +14,9 @@
         <action
             android:id="@+id/open_signup"
             app:destination="@id/destination_signup" />
+        <action
+            android:id="@+id/login_to_home"
+            app:destination="@id/destination_home_container" />
     </fragment>
     <fragment
         android:id="@+id/destination_signup"
@@ -24,6 +27,13 @@
             android:id="@+id/return_to_login"
             app:destination="@id/destination_login" />
     </fragment>
-    <include app:graph="@navigation/nav_graph_home" />
+    <fragment
+        android:id="@+id/destination_home_container"
+        android:name="com.reis.vinicius.vempraquadra.view.home.HomeContainerFragment"
+        android:label="Home" >
+        <action
+            android:id="@+id/logout"
+            app:destination="@id/destination_login" />
+    </fragment>
 
 </navigation>

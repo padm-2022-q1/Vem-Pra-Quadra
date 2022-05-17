@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -43,7 +44,7 @@ class LoginFragment : Fragment() {
 
             auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful){
-                    getNavController().navigate(LoginFragmentDirections.login())
+                    getNavController().navigate(R.id.login_to_home)
                 } else {
                     Log.e("AUTH", "Failed to authenticate user", task.exception)
                     Snackbar.make(binding.root, "Failed to sign you in", Snackbar.LENGTH_LONG)
