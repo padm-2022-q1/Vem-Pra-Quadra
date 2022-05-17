@@ -26,8 +26,9 @@
         <entry key="app/src/main/res/layout/fragment_match_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_match_list_item.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_matches.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.34615384615384615" />
         <entry key="app/src/main/res/layout/list_item_gender.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/nav_header_user_profile.xml" value="0.33" />
         <entry key="app/src/main/res/menu/home_menu_user.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/menu/menu_court_add.xml" value="0.35" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.17604166666666668" />

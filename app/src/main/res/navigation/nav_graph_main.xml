@@ -7,22 +7,10 @@
     app:startDestination="@id/destination_login">
 
     <fragment
-        android:id="@+id/destination_home_container"
-        android:name="com.reis.vinicius.vempraquadra.view.home.HomeContainerFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home_container" >
-        <action
-            android:id="@+id/logout"
-            app:destination="@id/destination_login" />
-    </fragment>
-    <fragment
         android:id="@+id/destination_login"
         android:name="com.reis.vinicius.vempraquadra.view.auth.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/login"
-            app:destination="@id/destination_home_container" />
         <action
             android:id="@+id/open_signup"
             app:destination="@id/destination_signup" />
@@ -36,5 +24,6 @@
             android:id="@+id/return_to_login"
             app:destination="@id/destination_login" />
     </fragment>
+    <include app:graph="@navigation/nav_graph_home" />
 
 </navigation>

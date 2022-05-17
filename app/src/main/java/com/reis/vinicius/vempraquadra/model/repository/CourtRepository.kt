@@ -25,7 +25,7 @@ class CourtRepository(application: Application): FirestoreRepository<Court>(appl
             .toObjects(CourtFirestore::class.java).first().toEntity()
 
     override suspend fun insert(obj: Court) {
-        collection.add(CourtFirestore.fromEntity(obj))
+        collection.add(CourtFirestore.fromEntity(obj)).await()
     }
 
     override suspend fun update(obj: Court) {

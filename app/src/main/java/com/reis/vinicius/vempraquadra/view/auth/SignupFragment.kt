@@ -11,15 +11,15 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.coroutineScope
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentSignupBinding
+import com.reis.vinicius.vempraquadra.model.entity.Gender
 import com.reis.vinicius.vempraquadra.model.entity.UserData
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.UserViewModel
@@ -30,13 +30,8 @@ import java.util.*
 class SignupFragment : Fragment() {
     private lateinit var binding: FragmentSignupBinding
     private val viewModel: UserViewModel by activityViewModels()
-    private lateinit var auth: FirebaseAuth
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        auth = Firebase.auth
-    }
+    private val auth = Firebase.auth
+    private var selectedGenderId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,7 +55,7 @@ class SignupFragment : Fragment() {
 
     private fun bindSaveFabEvents() {
         binding.btnSignupSave.setOnClickListener {
-            val (email, password, userData) = parseUserData()
+            val (email, password) = getCredentials()
 
             auth.createUserWithEmailAndPassword(email as String, password as String)
                 .addOnCanceledListener {
@@ -70,12 +65,20 @@ class SignupFragment : Fragment() {
                     Log.e("FRAGMENT", "Failed to add user to Firebase", e)
                     Snackbar.make(binding.root, "Failed to sign you up", Snackbar.LENGTH_LONG).show()
                 }
-                .addOnSuccessListener {
-                    viewModel.insert(userData as UserData).observe(viewLifecycleOwner) { status ->
+                .addOnSuccessListener { result ->
+                    val dateParser = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+                    val userData = UserData(
+                        result.user?.uid ?: "",
+                        binding.inputTextSignupName.text.toString(),
+                        binding.inputTextSignupUsername.text.toString(),
+                        selectedGenderId,
+                        dateParser.parse(binding.inputTextSignupBirth.text.toString()) ?: Date()
+                    )
+
+                    viewModel.insert(userData).observe(viewLifecycleOwner) { status ->
                         when (status) {
                             is MainViewModel.Status.Success ->
-                                findNavController().navigate(LoginFragmentDirections.login()
-                                    , navOptions { popUpTo(R.id.destination_home_container) })
+                                getNavController().navigate(SignupFragmentDirections.returnToLogin())
                             is MainViewModel.Status.Loading -> {}
                             is MainViewModel.Status.Failure -> {
                                 Log.e("FRAGMENT", "Failed to save user data", status.e)
@@ -89,25 +92,20 @@ class SignupFragment : Fragment() {
     }
 
     private fun loadGenderDropdown() {
-        val genders = listOf(R.string.male, R.string.female, R.string.other).map { getString(it) }
+        val genders = Gender.values().map { it.name }
         val adapter = ArrayAdapter(
-            requireContext(), R.layout.dropdown_list_item,
-            R.id.text_item_name, genders
+            requireContext(),
+            R.layout.dropdown_list_item,
+            R.id.text_item_name,
+            genders
         )
 
         (binding.inputLayoutSignupGender.editText as? AutoCompleteTextView)?.setAdapter(adapter)
     }
 
-    private fun parseUserData(): Array<Any> = arrayOf(
+    private fun getCredentials(): Array<Any> = arrayOf(
         binding.inputTextSignupEmail.text.toString(),
-        binding.inputTextSignupPasswordConfirm.text.toString(),
-        UserData(
-            "",
-            binding.inputTextSignupName.text.toString(),
-            binding.inputTextSignupUsername.text.toString(),
-            binding.autoCompleteGender.toString(),
-            Date()
-        )
+        binding.inputTextSignupPasswordConfirm.text.toString()
     )
 
     private fun bindFormValidation() {
@@ -173,5 +171,12 @@ class SignupFragment : Fragment() {
                 && text.trim().toString() != binding.inputTextSignupPassword.text.toString().trim())
                 binding.inputTextSignupUsername.error = null
         }
+
+        binding.autoCompleteGender.setOnItemClickListener { _, _, position, _ ->
+            selectedGenderId = Gender.values()[position].id
+        }
     }
+
+    private fun getNavController() =
+        requireActivity().findNavController(R.id.nav_host_main)
 }

@@ -8,8 +8,6 @@ import androidx.lifecycle.ViewModel
 import java.lang.Exception
 
 abstract class MainViewModel<T>(application: Application): AndroidViewModel(application) {
-    protected val _shouldRefresh = MutableLiveData(true)
-
     sealed class Status {
         class Failure(val e: Exception): Status()
         class Success(val result: Result): Status()

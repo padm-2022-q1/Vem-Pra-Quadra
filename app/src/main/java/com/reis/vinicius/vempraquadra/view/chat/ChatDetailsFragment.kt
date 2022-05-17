@@ -11,17 +11,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatDetailsBinding
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatListBinding
+import com.reis.vinicius.vempraquadra.model.adapter.MessageListItemAdapter
 import com.reis.vinicius.vempraquadra.model.dto.ChatWithMessages
+import com.reis.vinicius.vempraquadra.model.dto.MessageWithUserData
+import com.reis.vinicius.vempraquadra.model.entity.Message
 import com.reis.vinicius.vempraquadra.viewModel.ChatViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
+import java.util.*
+import java.util.jar.Manifest
 
 class ChatDetailsFragment : Fragment() {
     private lateinit var binding: FragmentChatDetailsBinding
     private val viewModel: ChatViewModel by activityViewModels()
     private val args: ChatDetailsFragmentArgs by navArgs()
+    private val auth = Firebase.auth
     private val chatCache = MutableLiveData<ChatWithMessages>()
     private lateinit var appBar: MaterialToolbar
 
@@ -43,6 +51,37 @@ class ChatDetailsFragment : Fragment() {
         super.onStart()
 
         loadMessages()
+        bindSendButtonEvent()
+    }
+
+    private fun bindSendButtonEvent(){
+        binding.btnChatSendMessage.setOnClickListener {
+            viewModel.saveMessage(Message(
+                "",
+                binding.textInputChatMessageContent.text.toString(),
+                Date(),
+                auth.currentUser?.uid ?: "",
+                chatCache.value?.chat?.id ?: "",
+                arrayListOf( auth.currentUser?.uid ?: "" )
+            )).observe(viewLifecycleOwner) { status ->
+                when (status) {
+                    is MainViewModel.Status.Loading -> toggleMessages(false)
+                    is MainViewModel.Status.Failure -> {
+                        toggleMessages(true)
+                        Log.e("FRAGMENT", "Failed to save message", status.e)
+                        showMessage(status.e.message)
+                    }
+                    is MainViewModel.Status.Success -> {
+                        val message = (status.result as MainViewModel.Result.Data<MessageWithUserData>).obj
+
+                        (binding.recyclerViewChatMessages.adapter as MessageListItemAdapter)
+                            .addMessage(message)
+                        binding.textInputChatMessageContent.text = null
+                        toggleMessages(true)
+                    }
+                }
+            }
+        }
     }
 
     private fun loadMessages(){
@@ -52,12 +91,14 @@ class ChatDetailsFragment : Fragment() {
                 is MainViewModel.Status.Failure -> {
                     Log.e("FRAGMENT", "Failed to get messages", status.e)
                     showMessage(status.e.message)
+                    toggleMessages(true)
                 }
                 is MainViewModel.Status.Success -> {
                     val chat = (status.result as MainViewModel.Result.Data<ChatWithMessages>).obj
 
                     chatCache.value = chat
                     fillDetails()
+                    toggleMessages(true)
                 }
             }
         }
@@ -65,12 +106,16 @@ class ChatDetailsFragment : Fragment() {
 
     private fun fillDetails(){
         chatCache.observe(viewLifecycleOwner) { chat ->
+            val adapter = MessageListItemAdapter(
+                chatCache.value?.messages?.sortedBy { it.message.sentIn }?.toMutableList()
+                    ?: emptyList<MessageWithUserData>().toMutableList(),
+                auth.currentUser?.uid ?: ""
+            )
+
+            binding.recyclerViewChatMessages.swapAdapter(adapter, false)
             appBar.title = chat.chat.match?.name ?: "Chat"
-            fillMessageList()
         }
     }
-
-    private
 
     private fun toggleMessages(show: Boolean){
         binding.recyclerViewChatMessages.visibility = if (show) View.VISIBLE else View.INVISIBLE

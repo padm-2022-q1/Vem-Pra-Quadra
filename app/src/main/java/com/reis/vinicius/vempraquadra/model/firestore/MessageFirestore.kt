@@ -6,7 +6,7 @@ import java.util.*
 
 data class MessageFirestore (
     val content: String = "",
-    val sentIn: Date = Date(),
+    val sentIn: Date? = null,
     val sentById: String = "",
     val chatId: String = "",
     val readByIds: List<String> = emptyList(),

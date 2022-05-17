@@ -37,7 +37,6 @@ class CourtViewModel(application: Application): MainViewModel<Court>(application
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(repository.insert(obj))))
-            _shouldRefresh.postValue(true)
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to add element", e)))
         }

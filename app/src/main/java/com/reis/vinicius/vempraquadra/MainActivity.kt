@@ -2,7 +2,7 @@ package com.reis.vinicius.vempraquadra
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.findNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.databinding.ActivityMainBinding
@@ -14,10 +14,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-
-        auth.currentUser?.let {
-            getNavController().navigate(LoginFragmentDirections.login())
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,6 +23,5 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
-    private fun getNavController() = (supportFragmentManager.findFragmentById(
-        R.id.nav_host_main) as NavHostFragment).navController
+    private fun getNavController(viewId: Int) = findNavController(viewId)
 }

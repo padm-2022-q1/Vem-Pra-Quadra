@@ -1,24 +1,31 @@
 package com.reis.vinicius.vempraquadra.view.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavHost
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentHomeContainerBinding
+import com.reis.vinicius.vempraquadra.model.entity.UserData
+import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
+import com.reis.vinicius.vempraquadra.viewModel.UserViewModel
 
 class HomeContainerFragment : Fragment() {
     private lateinit var binding: FragmentHomeContainerBinding
+    private val viewModel: UserViewModel by activityViewModels()
     private val auth = Firebase.auth
+    private lateinit var userData: UserData
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,25 +43,48 @@ class HomeContainerFragment : Fragment() {
         val appBar = binding.appBarMainMenu
         val drawerLayout = binding.drawerLayoutHome
         val navView = binding.navView
+        val appBarConfig = AppBarConfiguration(
+            getNavController(R.id.nav_host_home).graph,
+            drawerLayout
+        )
 
-        navView.setupWithNavController(getNavController())
-        appBar.setupWithNavController(getNavController())
+        navView.setupWithNavController(getNavController(R.id.nav_host_home))
+        appBar.setupWithNavController(getNavController(R.id.nav_host_home), appBarConfig)
 
         bindLogoutEvent()
+        fillUserData()
     }
 
-    private fun bindLogoutEvent(){
-        val btnLogout = binding.navView.getHeaderView(0).findViewById<ImageButton>(R.id.btn_user_logout)
+    private fun fillUserData(){
+        viewModel.getById(auth.currentUser?.uid ?: "").observe(viewLifecycleOwner){ status ->
+            when (status) {
+                is MainViewModel.Status.Loading -> {}
+                is MainViewModel.Status.Failure -> {
+                    Log.e("FRAGMENT", status.e.message, status.e)
+                }
+                is MainViewModel.Status.Success -> {
+                    userData = (status.result as MainViewModel.Result.Data<UserData>).obj
 
-        btnLogout.setOnClickListener {
-            auth.signOut()
-            getNavController().navigate(HomeContainerFragmentDirections.logout(), navOptions {
-                popUpTo(R.id.destination_login)
-            })
+                    binding.navView.getHeaderView(0)?.let { header ->
+                        val user = auth.currentUser ?: throw Exception("Failed to get current user")
+
+                        header.findViewById<TextView>(R.id.text_nav_header_user_name).text = userData.name
+                        header.findViewById<TextView>(R.id.text_nav_header_user_email).text = user.email
+                    }
+                }
+            }
         }
     }
 
-    private fun getNavController() =
-        (childFragmentManager.findFragmentById(R.id.nav_host_home) as NavHostFragment).navController
+    private fun bindLogoutEvent(){
+        val btnLogout = binding.navView.getHeaderView(0)
+            .findViewById<ImageButton>(R.id.btn_nav_header_user_logout)
 
+        btnLogout.setOnClickListener {
+            auth.signOut()
+//            getNavController(R.id.nav_host_main).navigate(MainMenuFragmentDirections.logout())
+        }
+    }
+
+    private fun getNavController(viewId: Int) = requireActivity().findNavController(viewId)
 }

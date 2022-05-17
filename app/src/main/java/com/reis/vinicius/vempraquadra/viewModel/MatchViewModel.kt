@@ -55,7 +55,6 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
         try {
             emit(Status.Loading)
             emit(Status.Success(Result.Data(matchRepository.insert(match))))
-            _shouldRefresh.postValue(true)
         } catch (e: Exception){
             emit(Status.Failure(Exception("Failed to add element", e)))
         }

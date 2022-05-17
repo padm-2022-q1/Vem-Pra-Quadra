@@ -57,22 +57,22 @@ class MatchDetailsFragment : Fragment() {
             viewModel.changeAttendance(
                 matchCache.value?.match?.id ?: "",
                 auth.currentUser?.uid ?: "",
-                matchCache.value?.match?.usersIds?.contains(auth.currentUser?.uid ?: "") ?: true)
-                .observe(viewLifecycleOwner) { status ->
-                    when (status) {
-                        is MainViewModel.Status.Loading -> {
-                            binding.btnMatchDetailsChangeAttendance.isEnabled = false
-                        }
-                        is MainViewModel.Status.Failure -> {
-                            binding.btnMatchDetailsChangeAttendance.isEnabled = true
-                            Log.e("FRAGMENT", "Failed to join match", status.e)
-                            showMessage("Failed to join match. Please, try again later.")
-                        }
-                        is MainViewModel.Status.Success -> {
-                            toggleJoinMatchButton(false)
-                            binding.btnMatchDetailsChangeAttendance.isEnabled = true
-                        }
+                !((matchCache.value?.match?.usersIds?.contains(auth.currentUser?.uid ?: "")) ?: true)
+            ).observe(viewLifecycleOwner) { status ->
+                when (status) {
+                    is MainViewModel.Status.Loading -> {
+                        binding.btnMatchDetailsChangeAttendance.isEnabled = false
                     }
+                    is MainViewModel.Status.Failure -> {
+                        binding.btnMatchDetailsChangeAttendance.isEnabled = true
+                        Log.e("FRAGMENT", "Failed to join match", status.e)
+                        showMessage("Failed to join match. Please, try again later.")
+                    }
+                    is MainViewModel.Status.Success -> {
+                        toggleJoinMatchButton(false)
+                        binding.btnMatchDetailsChangeAttendance.isEnabled = true
+                    }
+                }
             }
         }
     }

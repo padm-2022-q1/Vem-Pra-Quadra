@@ -105,7 +105,6 @@ class MatchAddFragment : Fragment() {
 
     private fun bindDatePickerEvents(){
         val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-        val calendar = Calendar.getInstance().timeInMillis
 
         datePicker.addOnPositiveButtonClickListener {
             binding.textInputMatchDate.setText(formatter.format(Date(it)))

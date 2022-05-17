@@ -4,35 +4,32 @@ import com.reis.vinicius.vempraquadra.model.entity.UserData
 import java.util.*
 
 data class UserDataFirestore (
-    val id: String?,
-    val name: String?,
-    val userName: String?,
-    val gender: String?,
-    val birth: Date?
+    val name: String = "",
+    val userName: String = "",
+    val genderId: Int = 2,
+    val birth: Date = Date()
 ){
-    fun toEntity() = UserData(
-        id = id ?: "",
-        name = name ?: "",
-        userName = userName ?: "",
-        gender = gender ?: "",
-        birth = birth ?: Date()
+    fun toEntity(id: String) = UserData(
+        id = id,
+        name = name,
+        userName = userName,
+        genderId = genderId,
+        birth = birth
     )
 
     companion object {
         fun fromEntity (userData: UserData) = UserDataFirestore(
-            id = userData.id,
             name = userData.name,
             userName = userData.userName,
-            gender = userData.gender,
+            genderId = userData.genderId,
             birth = userData.birth
         )
     }
 
     object Fields {
-        const val id = "id"
         const val name = "name"
         const val userName = "userName"
-        const val gender = "gender"
+        const val genderId = "genderId"
         const val birth = "birth"
     }
 }

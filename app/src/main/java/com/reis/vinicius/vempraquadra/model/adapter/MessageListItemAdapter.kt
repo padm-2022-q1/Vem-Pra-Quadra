@@ -1,73 +1,90 @@
 package com.reis.vinicius.vempraquadra.model.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.R
-import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
+import com.reis.vinicius.vempraquadra.databinding.FragmentChatMessageReceivedBinding
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatMessageSentBinding
-import com.reis.vinicius.vempraquadra.model.entity.Chat
+import com.reis.vinicius.vempraquadra.model.dto.MessageWithUserData
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MessageListItemAdapter(
-    private val context: Context,
-    private val navController: NavController,
-    private val chats: List<Chat>,
-    private val userId: String
-) : RecyclerView.Adapter<MessageListItemAdapter.Holder>() {
-    inner class MessageSentHolder(itemBinding: FragmentChatMessageSentBinding):
-        // TODO("Create view holders")
+    private val mMessages: MutableList<MessageWithUserData>,
+    private val userId: String,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private enum class ViewHolderType(val value: Int) {
+        SENT(1),
+        RECEIVED(2);
 
+        companion object {
+            fun fromInt(value: Int) = values().first { it.value == value }
+        }
+    }
+
+    inner class SentMessageViewHolder(itemBinding: FragmentChatMessageSentBinding):
         RecyclerView.ViewHolder(itemBinding.root){
-            val name = itemBinding.textChatItemContactName
-            val lastMessageContent = itemBinding.textChatItemLastMessageSummary
-            val lastMessageDate = itemBinding.textChatItemLastMessageDate
-            val unreadIndicator = itemBinding.imageUnreadMessage
+            val content = itemBinding.textSentMessageContent
+            val imgStatus = itemBinding.imageSentMessageStatus
+        }
 
-            init {
-                itemBinding.root.setOnClickListener {
-                    // TODO("Navigate to chat details")
-                }
+    inner class ReceivedMessageViewHolder(itemBinding: FragmentChatMessageReceivedBinding):
+        RecyclerView.ViewHolder(itemBinding.root){
+        val userName = itemBinding.textReceivedMessageAuthor
+        val content = itemBinding.textReceivedMessageContent
+        val date = itemBinding.textReceivedMessageDate
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        when (ViewHolderType.fromInt(viewType)){
+            ViewHolderType.SENT -> SentMessageViewHolder(
+                FragmentChatMessageSentBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+            ViewHolderType.RECEIVED -> ReceivedMessageViewHolder(
+                FragmentChatMessageReceivedBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val message = mMessages[position]
+
+        when (holder) {
+            is SentMessageViewHolder -> {
+                holder.content.text = message.message.content
+                holder.imgStatus.setImageResource(
+                    if (message.message.sentIn == null) R.drawable.ic_pending
+                    else R.drawable.ic_check
+                )
+            }
+            is ReceivedMessageViewHolder -> {
+                val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
+
+                holder.userName.text = message.user.name
+                holder.content.text = message.message.content
+                holder.date.text = message.message.sentIn?.let { dateFormatter.format(it) }
             }
         }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(FragmentChatListItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        ))
     }
 
-    override fun onBindViewHolder(holder: Holder, position: Int) {
-        val chat = chats[position]
-        val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.US)
-
-        holder.name.text = chat.match?.name ?: ""
-
-        if (chat.lastMessage != null){
-            holder.name.setTypeface(null, Typeface.BOLD)
-            holder.lastMessageContent.setTypeface(null, Typeface.BOLD)
-            holder.lastMessageDate.text = dateFormatter.format(chat.lastMessage.sentIn)
-            holder.lastMessageContent.text = chat.lastMessage.content.substring(40)
-            holder.lastMessageDate.text = dateFormatter.format(chat.lastMessage.sentIn)
-            holder.unreadIndicator.visibility =
-                if (chat.lastMessage.readByIds.contains(userId)) View.VISIBLE else View.INVISIBLE
-        } else {
-            holder.name.setTypeface(null, Typeface.NORMAL)
-            holder.lastMessageContent.setTypeface(null, Typeface.ITALIC)
-            holder.lastMessageContent.text = context.getString(R.string.chat_no_messages_warning)
-            holder.lastMessageDate.text = ""
-            holder.unreadIndicator.visibility = View.INVISIBLE
+    override fun getItemViewType(position: Int): Int =
+        when (mMessages[position].user.id == userId) {
+            true -> ViewHolderType.SENT.value
+            false -> ViewHolderType.RECEIVED.value
         }
+
+    override fun getItemCount(): Int = mMessages.size
+
+    fun addMessage(message: MessageWithUserData){
+        mMessages.add(itemCount, message)
     }
-
-    override fun getItemCount(): Int = chats.size
-
-    fun getId(position: Int): String = chats[position].id
 }

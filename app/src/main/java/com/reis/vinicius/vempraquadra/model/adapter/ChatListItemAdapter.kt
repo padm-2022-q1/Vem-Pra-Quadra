@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatListItemBinding
 import com.reis.vinicius.vempraquadra.model.entity.Chat
+import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,7 +29,9 @@ class ChatListItemAdapter(
 
             init {
                 itemBinding.root.setOnClickListener {
-                    // TODO("Navigate to chat details")
+                    navController.navigate(MainMenuFragmentDirections.openChatDetails(
+                        getId(bindingAdapterPosition))
+                    )
                 }
             }
         }
@@ -47,20 +50,27 @@ class ChatListItemAdapter(
 
         holder.name.text = chat.match?.name ?: ""
 
-        if (chat.lastMessage != null){
-            holder.name.setTypeface(null, Typeface.BOLD)
-            holder.lastMessageContent.setTypeface(null, Typeface.BOLD)
-            holder.lastMessageDate.text = dateFormatter.format(chat.lastMessage.sentIn)
-            holder.lastMessageContent.text = chat.lastMessage.content.substring(40)
-            holder.lastMessageDate.text = dateFormatter.format(chat.lastMessage.sentIn)
-            holder.unreadIndicator.visibility =
-                if (chat.lastMessage.readByIds.contains(userId)) View.VISIBLE else View.INVISIBLE
-        } else {
+        if (chat.lastMessage == null){
             holder.name.setTypeface(null, Typeface.NORMAL)
             holder.lastMessageContent.setTypeface(null, Typeface.ITALIC)
             holder.lastMessageContent.text = context.getString(R.string.chat_no_messages_warning)
             holder.lastMessageDate.text = ""
             holder.unreadIndicator.visibility = View.INVISIBLE
+        } else {
+            holder.lastMessageContent.text = chat.lastMessage.content.substring(0,
+                minOf(chat.lastMessage.content.length, 40))
+            holder.lastMessageDate.text = if (chat.lastMessage.sentIn != null)
+                dateFormatter.format(chat.lastMessage.sentIn) else "Sending..."
+
+            if (chat.lastMessage.readByIds.contains(userId)){
+                holder.name.setTypeface(null, Typeface.NORMAL)
+                holder.lastMessageContent.setTypeface(null, Typeface.NORMAL)
+                holder.unreadIndicator.visibility = View.INVISIBLE
+            } else {
+                holder.name.setTypeface(null, Typeface.BOLD)
+                holder.lastMessageContent.setTypeface(null, Typeface.BOLD)
+                holder.unreadIndicator.visibility = View.VISIBLE
+            }
         }
     }
 
