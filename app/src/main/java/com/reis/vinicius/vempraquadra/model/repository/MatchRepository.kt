@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.firestore.ktx.toObjects
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
 import com.reis.vinicius.vempraquadra.model.firestore.ChatFirestore
@@ -16,6 +17,7 @@ import java.util.*
 class MatchRepository(application: Application): FirestoreRepository<Match>(application) {
     private val db: FirebaseFirestore = Firebase.firestore
     private val collection = db.collection(Repository.Collections.Match)
+    private val courtCollection = db.collection(Repository.Collections.Court)
 
     override suspend fun getAll(): List<Match> =
         collection.get(getSource()).await()
@@ -53,8 +55,8 @@ class MatchRepository(application: Application): FirestoreRepository<Match>(appl
     suspend fun getFullMatchById(id: String): MatchWithCourt {
         lateinit var result: MatchWithCourt
 
-        collection.document(id).get().await().toObject(MatchFirestore::class.java)?.let { match ->
-            val court = db.collection(Repository.Collections.Court)
+        collection.document(id).get(getSource()).await().toObject(MatchFirestore::class.java)?.let { match ->
+            val court = courtCollection
                 .whereEqualTo(CourtFirestore.Fields.id, match.courtId).get().await().firstOrNull()
                 ?.toObject(CourtFirestore::class.java)?.toEntity()
                 ?: throw Exception("Failed to find court with id ${match.courtId}")
@@ -66,7 +68,7 @@ class MatchRepository(application: Application): FirestoreRepository<Match>(appl
     }
 
     suspend fun changeAttendance(id: String, userId: String, join: Boolean) {
-        collection.document(id).get().await()?.let { documentSnapshot ->
+        collection.document(id).get(getSource()).await()?.let { documentSnapshot ->
             val match = documentSnapshot.toObject(MatchFirestore::class.java)
                 ?: throw Exception("Failed to parse match with $id")
             var newUsersIds = match.usersIds.toMutableList()
@@ -86,5 +88,15 @@ class MatchRepository(application: Application): FirestoreRepository<Match>(appl
             documentSnapshot.reference.set(updatedMatch)
 
         } ?: throw Exception("Failed to get match with id $id")
+    }
+
+    suspend fun getAllMatchWithCourt(): List<MatchWithCourt> {
+        val matches = collection.get(getSource()).await()
+            .map { it.toObject(MatchFirestore::class.java).toEntity(it.id)}
+        if (matches.isNullOrEmpty()) return emptyList()
+        val courts = courtCollection.whereIn(CourtFirestore.Fields.id, matches.map { it.courtId })
+            .get(getSource()).await().toObjects(CourtFirestore::class.java).map { it.toEntity() }
+
+        return matches.map { MatchWithCourt(it, courts.first { court -> it.courtId == court.id }) }
     }
 }

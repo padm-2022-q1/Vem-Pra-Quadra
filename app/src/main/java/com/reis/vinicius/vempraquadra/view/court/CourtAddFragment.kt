@@ -22,6 +22,12 @@ class CourtAddFragment : Fragment() {
     private val viewModel: CourtViewModel by activityViewModels()
     private lateinit var appBar: MaterialToolbar
 
+    override fun onStart() {
+        super.onStart()
+
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,15 +39,10 @@ class CourtAddFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         appBar = requireActivity().findViewById(R.id.app_bar_main_menu)
-
         appBar.inflateMenu(R.menu.menu_court_add)
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setHasOptionsMenu(true)
 
         bindFormEvents()
         bindAppBarItemEvent()

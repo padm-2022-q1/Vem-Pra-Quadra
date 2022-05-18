@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navOptions
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -40,20 +41,19 @@ class HomeContainerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (auth.currentUser == null){
-            getNavController(R.id.nav_host_main).navigate(HomeContainerFragmentDirections.logout())
-        }
+        if (auth.currentUser == null)
+            getMainNavController().navigate(HomeContainerFragmentDirections.logout())
 
         val appBar = binding.appBarMainMenu
         val drawerLayout = binding.drawerLayoutHome
         val navView = binding.navView
         val appBarConfig = AppBarConfiguration(
-            getNavController(R.id.nav_host_home).graph,
+            getHomeNavController().graph,
             drawerLayout
         )
 
-        navView.setupWithNavController(getNavController(R.id.nav_host_home))
-        appBar.setupWithNavController(getNavController(R.id.nav_host_home), appBarConfig)
+        navView.setupWithNavController(getHomeNavController())
+        appBar.setupWithNavController(getHomeNavController(), appBarConfig)
 
         bindLogoutEvent()
         fillUserData()
@@ -86,9 +86,14 @@ class HomeContainerFragment : Fragment() {
 
         btnLogout.setOnClickListener {
             auth.signOut()
-            getNavController(R.id.nav_host_main).navigate(HomeContainerFragmentDirections.logout())
+            getMainNavController().navigate(HomeContainerFragmentDirections.logout())
         }
     }
 
-    private fun getNavController(viewId: Int) = requireActivity().findNavController(viewId)
+    private fun getMainNavController() =
+        requireActivity().findNavController(R.id.nav_host_main)
+
+    private fun getHomeNavController() =
+        (childFragmentManager.findFragmentById(R.id.nav_host_home) as? NavHostFragment)?.navController
+            ?: throw Exception("Failed to get nav controller")
 }

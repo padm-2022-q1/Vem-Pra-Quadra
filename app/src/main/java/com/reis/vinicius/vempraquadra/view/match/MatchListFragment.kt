@@ -2,23 +2,29 @@ package com.reis.vinicius.vempraquadra.view.match
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListBinding
-import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.model.adapter.MatchListItemAdapter
+import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
 import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
+import java.util.*
 
 class MatchListFragment : Fragment() {
     private lateinit var binding: FragmentMatchListBinding
     private val viewModel: MatchViewModel by activityViewModels()
+    private lateinit var matchesCache: List<MatchWithCourt>
+    private val auth = Firebase.auth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +41,7 @@ class MatchListFragment : Fragment() {
 
         bindFabEvents()
         bindRefreshEvent()
+        bindChipSelectEvents()
         refresh()
     }
 
@@ -48,8 +55,14 @@ class MatchListFragment : Fragment() {
         }
     }
 
+    private fun bindChipSelectEvents(){
+        binding.chipsMatchList.setOnCheckedStateChangeListener { _, _ ->
+            swapMatchesAdapter()
+        }
+    }
+
     private fun refresh(){
-        viewModel.getAll().observe(viewLifecycleOwner){ status ->
+        viewModel.getAllMatchWithCourts().observe(viewLifecycleOwner){ status ->
             when (status) {
                 is MainViewModel.Status.Loading ->
                     binding.matchSwipeRefreshLayout.isRefreshing = true
@@ -60,13 +73,32 @@ class MatchListFragment : Fragment() {
                         Snackbar.LENGTH_LONG).show()
                 }
                 is MainViewModel.Status.Success -> {
-                    val matches = (status.result as MainViewModel.Result.Data<List<Match>>).obj
-                    val adapter = MatchListItemAdapter(findNavController(), matches)
+                    matchesCache = (status.result as MainViewModel.Result.Data<List<MatchWithCourt>>)
+                        .obj.sortedBy { it.match.date }
 
-                    binding.recyclerMatchList.swapAdapter(adapter, false)
+                    swapMatchesAdapter()
                     binding.matchSwipeRefreshLayout.isRefreshing = false
                 }
             }
         }
+    }
+
+    private fun swapMatchesAdapter() {
+        val filteredMatches = when (binding.chipsMatchList.checkedChipId) {
+            R.id.chip_filter_all -> matchesCache.filter { it.match.date >= Date() }
+            R.id.chip_filter_past -> matchesCache.filter { it.match.date < Date() }
+            R.id.chip_filter_joined -> matchesCache.filter {
+                it.match.usersIds.contains(auth.currentUser?.uid ?: "")
+            }
+            R.id.chip_filter_not_joined -> matchesCache.filter {
+                !it.match.usersIds.contains(auth.currentUser?.uid ?: "")
+            }
+            else -> matchesCache
+        }
+
+        val adapter = MatchListItemAdapter(requireContext(), findNavController(),
+            filteredMatches.sortedBy { it.match.date })
+
+        binding.recyclerMatchList.swapAdapter(adapter, false)
     }
 }

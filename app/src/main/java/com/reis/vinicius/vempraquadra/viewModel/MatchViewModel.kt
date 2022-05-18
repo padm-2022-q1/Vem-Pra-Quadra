@@ -78,6 +78,15 @@ class MatchViewModel(application: Application): MainViewModel<Match>(application
         }
     }
 
+    fun getAllMatchWithCourts() = liveData {
+        try {
+            emit(Status.Loading)
+            emit(Status.Success(Result.Data(matchRepository.getAllMatchWithCourt())))
+        } catch (e: Exception){
+            emit(Status.Failure(Exception("Failed to get match object with court", e)))
+        }
+    }
+
     fun changeAttendance(id: String, userId: String, join: Boolean) = liveData {
         try {
             emit(Status.Loading)

@@ -25,7 +25,11 @@ class CourtRepository(application: Application): FirestoreRepository<Court>(appl
             .toObjects(CourtFirestore::class.java).first().toEntity()
 
     override suspend fun insert(obj: Court) {
-        collection.add(CourtFirestore.fromEntity(obj)).await()
+        collection.add(CourtFirestore(
+            id = nextId(),
+            name = obj.name,
+            address = obj.address
+        )).await()
     }
 
     override suspend fun update(obj: Court) {
@@ -51,8 +55,7 @@ class CourtRepository(application: Application): FirestoreRepository<Court>(appl
     private suspend fun nextId(): Long =
         collection.document(nextIdDoc).get(getSource()).await().let { documentSnapshot ->
             if (documentSnapshot.exists()) {
-                val oldValue = documentSnapshot.toObject(LongId::class.java)?.value
-                    ?: throw Exception("Failed to retrieve last id value")
+                val oldValue = documentSnapshot.toObject(LongId::class.java)?.value ?: 0
                 LongId(oldValue + 1)
             } else {
                 LongId(1)

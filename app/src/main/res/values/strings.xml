@@ -14,7 +14,7 @@
     <string name="feed_item_title_default">Feed item title</string>
     <string name="feed_item_content_default">Feed item content, that describes the details of this feed item</string>
     <string name="feed_item_calendar_icon_description">Calendar icon</string>
-    <string name="text_default_datetime">2022-01-01 08:00:00 a.m.</string>
+    <string name="text_default_datetime">2022–01–01 08:00:00 a.m.</string>
     <string name="chat_item_contact_name_default">Contact name</string>
     <string name="chat_item_last_message_summary_default">Last message summarized</string>
     <string name="user_name_default">User\'s name</string>
@@ -64,7 +64,7 @@
     <string name="fab_create_match_content">Create match</string>
     <string name="court">Court</string>
     <string name="warning_required_field">Required field</string>
-    <string name="chat_new_message_hint">Hello...</string>
+    <string name="chat_new_message_hint">Hello…</string>
     <string name="send_message">Send message</string>
     <string name="send">Send</string>
     <string name="chat_message_default_text">This is a message used as model do the default layout</string>
@@ -75,4 +75,13 @@
     <string name="unread_message_description">Unread message</string>
     <string name="text_default_date">01/01/2022</string>
     <string name="chat_no_messages_warning">No messages sent yet</string>
+    <string name="date_format">MM/dd/yyyy</string>
+    <string name="timezone">Brazil/West</string>
+    <string name="datetime_format">MM/dd/yyyy hh:mm:ss</string>
+    <string name="joined">Joined</string>
+    <string name="past">Past</string>
+    <string name="not_joined">Not joined</string>
+    <string name="all">All</string>
+    <string name="incoming">Incoming</string>
+    <string name="update">Update</string>
 </resources>

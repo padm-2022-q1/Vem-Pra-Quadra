@@ -17,12 +17,14 @@
         <entry key="app/src/main/res/layout/fragment_chat_message_sent.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_court_add.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_court_list.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/layout/fragment_court_list_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home_container.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_main_menu.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_match_add.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_match_create.xml" value="0.3515625" />
-        <entry key="app/src/main/res/layout/fragment_match_details.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_match_details.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_match_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_match_list_item.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_matches.xml" value="0.33" />
@@ -30,9 +32,11 @@
         <entry key="app/src/main/res/layout/list_item_gender.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/nav_header_user_profile.xml" value="0.33" />
         <entry key="app/src/main/res/menu/home_menu_user.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/menu/menu_chat_details.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/menu/menu_court_add.xml" value="0.35" />
         <entry key="app/src/main/res/menu/menu_home.xml" value="0.17604166666666668" />
         <entry key="app/src/main/res/menu/menu_main_menu.xml" value="0.35104166666666664" />
+        <entry key="app/src/main/res/menu/menu_match_add.xml" value="0.1" />
       </map>
     </option>
   </component>
