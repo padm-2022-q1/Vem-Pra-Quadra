@@ -85,6 +85,7 @@ class MessageListItemAdapter(
     override fun getItemCount(): Int = mMessages.size
 
     fun addMessage(message: MessageWithUserData){
-        mMessages.add(itemCount, message)
+        mMessages.add(0, message)
+        notifyItemInserted(0)
     }
 }

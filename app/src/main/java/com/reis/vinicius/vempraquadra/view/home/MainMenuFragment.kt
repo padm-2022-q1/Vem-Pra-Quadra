@@ -11,7 +11,7 @@ import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMainMenuBinding
 import com.reis.vinicius.vempraquadra.view.chat.ChatListFragment
 import com.reis.vinicius.vempraquadra.view.court.CourtListFragment
-import com.reis.vinicius.vempraquadra.view.match.MatchesFragment
+import com.reis.vinicius.vempraquadra.view.match.MatchListFragment
 
 class MainMenuFragment : Fragment() {
     private lateinit var binding: FragmentMainMenuBinding
@@ -48,10 +48,10 @@ class MainMenuFragment : Fragment() {
 
     private fun loadTab(itemId: Int){
         val fragment = when (itemId){
-            R.id.item_main_menu_matches -> MatchesFragment()
+            R.id.item_main_menu_matches -> MatchListFragment()
             R.id.item_main_menu_chat -> ChatListFragment()
             R.id.item_main_menu_courts -> CourtListFragment()
-            else -> MatchesFragment()
+            else -> MatchListFragment()
         }
 
         parentFragmentManager.commit {

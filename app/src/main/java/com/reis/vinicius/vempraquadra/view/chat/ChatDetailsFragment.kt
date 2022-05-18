@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +34,12 @@ class ChatDetailsFragment : Fragment() {
     private val chatCache = MutableLiveData<ChatWithMessages>()
     private lateinit var appBar: MaterialToolbar
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -45,6 +52,8 @@ class ChatDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appBar = requireActivity().findViewById(R.id.app_bar_main_menu)
+
+        appBar.inflateMenu(R.menu.menu_chat_details)
     }
 
     override fun onStart() {
@@ -52,6 +61,22 @@ class ChatDetailsFragment : Fragment() {
 
         loadMessages()
         bindSendButtonEvent()
+        bindFormEvents()
+    }
+
+    private fun bindFormEvents(){
+        binding.textInputChatMessageContent.addTextChangedListener { text ->
+            binding.btnChatSendMessage.isEnabled = !text.isNullOrEmpty()
+        }
+
+        appBar.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menu_item_chat_update ->
+                    loadMessages()
+            }
+
+            true
+        }
     }
 
     private fun bindSendButtonEvent(){
@@ -74,8 +99,7 @@ class ChatDetailsFragment : Fragment() {
                     is MainViewModel.Status.Success -> {
                         val message = (status.result as MainViewModel.Result.Data<MessageWithUserData>).obj
 
-                        (binding.recyclerViewChatMessages.adapter as MessageListItemAdapter)
-                            .addMessage(message)
+                        (binding.recyclerViewChatMessages.adapter as MessageListItemAdapter).addMessage(message)
                         binding.textInputChatMessageContent.text = null
                         toggleMessages(true)
                     }
@@ -85,7 +109,8 @@ class ChatDetailsFragment : Fragment() {
     }
 
     private fun loadMessages(){
-        viewModel.getWithMessagesById(args.chatId).observe(viewLifecycleOwner) { status ->
+        viewModel.getWithMessagesById(args.chatId, auth.currentUser?.uid ?: "")
+            .observe(viewLifecycleOwner) { status ->
             when (status) {
                 is MainViewModel.Status.Loading -> toggleMessages(false)
                 is MainViewModel.Status.Failure -> {
@@ -107,7 +132,7 @@ class ChatDetailsFragment : Fragment() {
     private fun fillDetails(){
         chatCache.observe(viewLifecycleOwner) { chat ->
             val adapter = MessageListItemAdapter(
-                chatCache.value?.messages?.sortedBy { it.message.sentIn }?.toMutableList()
+                chatCache.value?.messages?.sortedByDescending { it.message.sentIn }?.toMutableList()
                     ?: emptyList<MessageWithUserData>().toMutableList(),
                 auth.currentUser?.uid ?: ""
             )

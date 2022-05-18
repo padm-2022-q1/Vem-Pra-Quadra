@@ -32,6 +32,11 @@ class SignupFragment : Fragment() {
     private val viewModel: UserViewModel by activityViewModels()
     private val auth = Firebase.auth
     private var selectedGenderId = 0
+    private val datePicker = MaterialDatePicker.Builder.datePicker()
+        .setTitleText("Select youy birth date")
+        .setNegativeButtonText("Cancel")
+        .setPositiveButtonText("Save")
+        .build()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -78,7 +83,7 @@ class SignupFragment : Fragment() {
                     viewModel.insert(userData).observe(viewLifecycleOwner) { status ->
                         when (status) {
                             is MainViewModel.Status.Success ->
-                                getNavController().navigate(SignupFragmentDirections.returnToLogin())
+                                getNavController().popBackStack()
                             is MainViewModel.Status.Loading -> {}
                             is MainViewModel.Status.Failure -> {
                                 Log.e("FRAGMENT", "Failed to save user data", status.e)
@@ -117,20 +122,16 @@ class SignupFragment : Fragment() {
     }
 
     private fun bindBirthDatePicker(){
-        val picker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText(R.string.action_select_birth_text).build()
+        val formatter = SimpleDateFormat(getString(R.string.date_format), Locale.US)
+        val calendar = Calendar.getInstance()
 
-        binding.inputTextSignupBirth.setOnClickListener {
-            picker.show(requireActivity().supportFragmentManager, null)
-        }
-
-        picker.addOnPositiveButtonClickListener {
-            val calendar = Calendar.getInstance()
+        datePicker.addOnPositiveButtonClickListener {
             calendar.timeInMillis = it
-
-            binding.inputTextSignupBirth.setText(SimpleDateFormat("dd/MM/yyyy", Locale.US)
-                .format(calendar.time))
+            binding.inputTextSignupBirth.setText(formatter.format(calendar.time))
+            datePicker.dismiss()
         }
+
+        datePicker.addOnNegativeButtonClickListener { datePicker.dismiss() }
     }
 
     private fun bindTextValidations() {
@@ -174,6 +175,15 @@ class SignupFragment : Fragment() {
 
         binding.autoCompleteGender.setOnItemClickListener { _, _, position, _ ->
             selectedGenderId = Gender.values()[position].id
+        }
+
+        binding.inputTextSignupBirth.setOnClickListener {
+            datePicker.show(parentFragmentManager, null)
+        }
+
+        binding.inputTextSignupBirth.addTextChangedListener { text ->
+            binding.inputLayoutSignupBirth.error = if (text.isNullOrEmpty())
+                getString(R.string.warning_required_field) else null
         }
     }
 

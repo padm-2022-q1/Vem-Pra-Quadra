@@ -32,10 +32,10 @@ class ChatViewModel(application: Application): MainViewModel<Chat>(application) 
         }
     }
 
-    fun getWithMessagesById(id: String) = liveData {
+    fun getWithMessagesById(id: String, userId: String) = liveData {
         try {
             emit(Status.Loading)
-            emit(Status.Success(Result.Data(chatRepository.getWithMessagesById(id))))
+            emit(Status.Success(Result.Data(chatRepository.getWithMessagesById(id, userId))))
         }
         catch (e: Exception){
             emit(Status.Failure(Exception("Failed to fetch object with id $id", e)))

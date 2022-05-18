@@ -2,6 +2,7 @@ package com.reis.vinicius.vempraquadra.view.match
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,24 +13,40 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.reis.vinicius.vempraquadra.BuildConfig
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchDetailsBinding
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MatchDetailsFragment : Fragment() {
     private lateinit var binding: FragmentMatchDetailsBinding
     private val viewModel: MatchViewModel by activityViewModels()
     private val args: MatchDetailsFragmentArgs by navArgs()
     private val auth = Firebase.auth
-    private val matchCache = MutableLiveData<MatchWithCourt>()
+    private val matchWithCourtCache = MutableLiveData<MatchWithCourt>()
+    private lateinit var appBar: MaterialToolbar
+    private lateinit var placesClient: PlacesClient
+    private var joinedMatch = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        Places.initialize(requireContext(), BuildConfig.MAPS_API_KEY)
+        placesClient = Places.createClient(requireContext())
 
         setHasOptionsMenu(true)
     }
@@ -44,6 +61,13 @@ class MatchDetailsFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        appBar = requireActivity().findViewById(R.id.app_bar_main_menu)
+        appBar.menu.clear()
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -55,9 +79,9 @@ class MatchDetailsFragment : Fragment() {
     private fun bindJoinMatchEvent(){
         binding.btnMatchDetailsChangeAttendance.setOnClickListener {
             viewModel.changeAttendance(
-                matchCache.value?.match?.id ?: "",
+                matchWithCourtCache.value?.match?.id ?: "",
                 auth.currentUser?.uid ?: "",
-                !((matchCache.value?.match?.usersIds?.contains(auth.currentUser?.uid ?: "")) ?: true)
+                !joinedMatch
             ).observe(viewLifecycleOwner) { status ->
                 when (status) {
                     is MainViewModel.Status.Loading -> {
@@ -69,7 +93,8 @@ class MatchDetailsFragment : Fragment() {
                         showMessage("Failed to join match. Please, try again later.")
                     }
                     is MainViewModel.Status.Success -> {
-                        toggleJoinMatchButton(false)
+                        joinedMatch = !joinedMatch
+                        toggleJoinMatchButton(!joinedMatch)
                         binding.btnMatchDetailsChangeAttendance.isEnabled = true
                     }
                 }
@@ -86,9 +111,10 @@ class MatchDetailsFragment : Fragment() {
                     showMessage(status.e.message)
                 }
                 is MainViewModel.Status.Success -> {
-                    val match = (status.result as MainViewModel.Result.Data<MatchWithCourt>).obj
+                    val matchWithCourt = (status.result as MainViewModel.Result.Data<MatchWithCourt>).obj
 
-                    matchCache.value = match
+                    matchWithCourtCache.value = matchWithCourt
+                    joinedMatch = matchWithCourt.match.usersIds.contains(auth.currentUser?.uid ?: "")
                     fillDetails()
                 }
             }
@@ -96,14 +122,38 @@ class MatchDetailsFragment : Fragment() {
     }
 
     private fun fillDetails(){
-        matchCache.observe(viewLifecycleOwner) { match ->
-            binding.textMatchDetailsName.text = match.match.name
-            binding.textMatchDetailsAddress.text = match.court.address
+        matchWithCourtCache.observe(viewLifecycleOwner) { matchWithCourt ->
+            val dateFormatter = SimpleDateFormat(getString(R.string.datetime_format), Locale.US)
 
-            toggleJoinMatchButton(!match.match.usersIds.any { it == auth.currentUser?.uid })
+            binding.textMatchDetailsName.text = matchWithCourt.match.name
+            binding.textMatchDetailsDate.text = dateFormatter.format(matchWithCourt.match.date)
+            binding.textMatchDetailsCourtName.text = matchWithCourt.court.name
+            binding.textMatchDetailsAddress.text = matchWithCourt.court.address
+
+            toggleJoinMatchButton(!matchWithCourt.match.usersIds.any { it == auth.currentUser?.uid })
             toggleLayout(true)
+            fillMapFragment()
+        }
+    }
 
-            // TODO("Fill map fragment")
+    private fun fillMapFragment(){
+        val mapFragment = binding.fragmentContainedMatchDetailsMap.getFragment<SupportMapFragment>()
+
+        mapFragment.getMapAsync { googleMap ->
+            val geocoder = Geocoder(requireContext())
+            val address = geocoder
+                .getFromLocationName(matchWithCourtCache.value?.court?.address, 1).firstOrNull()
+
+            if (address == null)
+                showMessage("Court not found on map")
+            else {
+                val latLng = LatLng(address.latitude, address.longitude)
+
+                googleMap.addMarker(
+                    MarkerOptions().position(latLng).title(matchWithCourtCache.value?.court?.name)
+                )
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 16.0f))
+            }
         }
     }
 

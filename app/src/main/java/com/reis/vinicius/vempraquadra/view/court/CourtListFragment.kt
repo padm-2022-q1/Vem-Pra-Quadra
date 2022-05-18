@@ -1,13 +1,21 @@
 package com.reis.vinicius.vempraquadra.view.court
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Geocoder
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
+import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentCourtListBinding
@@ -34,9 +42,9 @@ class CourtListFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        refresh()
         bindRefreshEvent()
         bindFabEvents()
+        refresh()
     }
 
     private fun bindFabEvents(){

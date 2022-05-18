@@ -27,7 +27,6 @@
             android:id="@+id/text_match_details_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/header_before_title_margin"
             android:text="@string/match_list_name_default"
             android:textAlignment="center"
             android:textSize="@dimen/title_text_size"
@@ -37,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/text_match_details_address"
+            android:id="@+id/text_match_details_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/text_default_datetime"
@@ -58,10 +57,10 @@
             app:layout_constraintTop_toBottomOf="@id/text_match_details_name" />
 
         <TextView
-            android:id="@+id/match_details_court_name"
+            android:id="@+id/text_match_details_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/court_name_text_default"
+            android:text="@string/court_address_text_default"
             app:layout_constraintBottom_toBottomOf="@id/btn_match_details_navigate"
             app:layout_constraintEnd_toStartOf="@id/btn_match_details_navigate"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,13 +77,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_match_details_add_calendar" />
 
+        <TextView
+            android:id="@+id/text_match_details_court_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/court_name_text_default"
+            app:layout_constraintTop_toBottomOf="@id/btn_match_details_navigate"
+            android:layout_marginTop="@dimen/details_between_element_margin"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_contained_match_details_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/details_between_element_margin"
+            android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toTopOf="@id/btn_match_details_change_attendance"
-            app:layout_constraintTop_toBottomOf="@id/btn_match_details_navigate" />
+            app:layout_constraintTop_toBottomOf="@id/text_match_details_court_name" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_match_details_change_attendance"

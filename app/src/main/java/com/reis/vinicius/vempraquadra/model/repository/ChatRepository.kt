@@ -50,7 +50,7 @@ class ChatRepository(application: Application): FirestoreRepository<Chat>(applic
         chatCollection.document(id).get(getSource()).await().let { documentSnapshot ->
             val chatFirestore = documentSnapshot.toObject(ChatFirestore::class.java)
                 ?: throw Exception("Failed to parse chat with id $id")
-            val match = matchRepository.getById(chatFirestore.matchId ?: "")
+            val match = matchRepository.getById(chatFirestore.matchId)
 
             chatFirestore.toEntity(documentSnapshot.id, match, getLastMessage(documentSnapshot.id))
         }
@@ -80,12 +80,12 @@ class ChatRepository(application: Application): FirestoreRepository<Chat>(applic
         }
     }
 
-    suspend fun getWithMessagesById(id: String): ChatWithMessages =
+    suspend fun getWithMessagesById(id: String, userId: String): ChatWithMessages =
         chatCollection.document(id).get(getSource()).await().let { documentSnapshot ->
             val chatFirestore = documentSnapshot.toObject(ChatFirestore::class.java)
                 ?: throw Exception("Failed to parse chat with id $id")
-            val match = matchRepository.getById(chatFirestore.matchId ?: "")
-            val messages = getMessages(documentSnapshot.id)
+            val match = matchRepository.getById(chatFirestore.matchId)
+            val messages = getMessages(documentSnapshot.id, userId)
             val chat = chatFirestore.toEntity(documentSnapshot.id, match, messages.lastOrNull()?.message)
 
             ChatWithMessages(chat, messages)
@@ -102,18 +102,34 @@ class ChatRepository(application: Application): FirestoreRepository<Chat>(applic
         return MessageWithUserData(message, userData)
     }
 
-    private suspend fun getMessages(chatId: String): List<MessageWithUserData> {
-        val messages = messageCollection
+    private suspend fun getMessages(chatId: String, userId: String): List<MessageWithUserData> {
+        val messagesQuery = messageCollection
             .whereEqualTo(MessageFirestore.Fields.chatId, chatId)
-            .orderBy(MessageFirestore.Fields.sentIn, Query.Direction.ASCENDING)
             .get(getSource()).await()
-            .map { it.toObject(MessageFirestore::class.java).toEntity(it.id) }
 
-        val usersQuery = if (messages.isEmpty()) userDataCollection
-            else userDataCollection.whereIn(FieldPath.documentId(), messages.map { it.sentById })
+        val messages = messagesQuery.map { it.toObject(MessageFirestore::class.java).toEntity(it.id) }
 
-        val users = usersQuery.get(getSource()).await()
+        if (messages.isEmpty()) return emptyList()
+
+        val users = userDataCollection.whereIn(FieldPath.documentId(), messages.map { it.sentById })
+            .get(getSource()).await()
             .map { it.toObject(UserDataFirestore::class.java).toEntity(it.id) }
+
+        // Set messages as read
+        messagesQuery.map {
+            val message = it.toObject(MessageFirestore::class.java)
+            val newReadByIds = message.readByIds.toMutableList()
+
+            newReadByIds.add(userId)
+
+            it.reference.set(MessageFirestore(
+                message.content,
+                message.sentIn,
+                message.sentById,
+                message.chatId,
+                newReadByIds.toList()
+            ))
+        }
 
         return messages.map { MessageWithUserData(it, users.first { user -> user.id == it.sentById }) }
     }
