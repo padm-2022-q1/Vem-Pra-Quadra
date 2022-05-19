@@ -1,22 +1,13 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.view.court
 
-import android.content.Context
 import android.content.Intent
-import android.location.Geocoder
-import android.location.Location
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.model.LatLng
 import com.reis.vinicius.vempraquadra.databinding.FragmentCourtListItemBinding
 import com.reis.vinicius.vempraquadra.model.entity.Court
-import com.reis.vinicius.vempraquadra.view.court.CourtListFragment
-import kotlinx.coroutines.internal.artificialFrame
-import kotlin.math.roundToInt
 
 class CourtListItemAdapter(
     private val fragment: CourtListFragment,

@@ -13,7 +13,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListBinding
-import com.reis.vinicius.vempraquadra.model.adapter.MatchListItemAdapter
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
 import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel

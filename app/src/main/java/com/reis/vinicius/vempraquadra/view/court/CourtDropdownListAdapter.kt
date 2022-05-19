@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.view.court
 
 import android.content.Context
 import android.view.View

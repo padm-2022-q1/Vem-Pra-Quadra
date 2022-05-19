@@ -1,6 +1,5 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.view.chat
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

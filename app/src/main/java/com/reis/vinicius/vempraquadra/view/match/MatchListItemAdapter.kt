@@ -1,4 +1,4 @@
-package com.reis.vinicius.vempraquadra.model.adapter
+package com.reis.vinicius.vempraquadra.view.match
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchListItemBinding
 import com.reis.vinicius.vempraquadra.model.dto.MatchWithCourt
-import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.view.home.MainMenuFragmentDirections
 import java.text.SimpleDateFormat
 import java.util.*

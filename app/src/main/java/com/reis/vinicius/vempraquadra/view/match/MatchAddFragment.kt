@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SimpleExpandableListAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,14 +27,13 @@ import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentMatchAddBinding
 import com.reis.vinicius.vempraquadra.model.entity.Court
-import com.reis.vinicius.vempraquadra.model.adapter.CourtDropdownListAdapter
+import com.reis.vinicius.vempraquadra.view.court.CourtDropdownListAdapter
 import com.reis.vinicius.vempraquadra.model.entity.Match
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MatchViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.math.hypot
 
 class MatchAddFragment : Fragment() {
     private lateinit var binding: FragmentMatchAddBinding

@@ -16,15 +16,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.R
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatDetailsBinding
-import com.reis.vinicius.vempraquadra.databinding.FragmentChatListBinding
-import com.reis.vinicius.vempraquadra.model.adapter.MessageListItemAdapter
 import com.reis.vinicius.vempraquadra.model.dto.ChatWithMessages
 import com.reis.vinicius.vempraquadra.model.dto.MessageWithUserData
 import com.reis.vinicius.vempraquadra.model.entity.Message
 import com.reis.vinicius.vempraquadra.viewModel.ChatViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
 import java.util.*
-import java.util.jar.Manifest
 
 class ChatDetailsFragment : Fragment() {
     private lateinit var binding: FragmentChatDetailsBinding

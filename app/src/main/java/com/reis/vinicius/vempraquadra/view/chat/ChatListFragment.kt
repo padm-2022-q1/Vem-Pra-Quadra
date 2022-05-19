@@ -12,7 +12,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.reis.vinicius.vempraquadra.databinding.FragmentChatListBinding
-import com.reis.vinicius.vempraquadra.model.adapter.ChatListItemAdapter
 import com.reis.vinicius.vempraquadra.model.entity.Chat
 import com.reis.vinicius.vempraquadra.viewModel.ChatViewModel
 import com.reis.vinicius.vempraquadra.viewModel.MainViewModel
